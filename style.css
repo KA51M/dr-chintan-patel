@@ -1,0 +1,2045 @@
+/* ==========================================================================
+   DR. CHINTAN PATEL - PEDIATRIC HEALTHCARE WEBSITE
+   Color Palette & Design System
+   ========================================================================== */
+
+:root {
+  /* Exact Brand Color Palette */
+  --primary-blue: #1749C9;       /* Royal Blue: Primary CTA, headings, nav active */
+  --deep-blue: #103B9B;          /* Deep Blue: Footer, selected headings, dark accents */
+  --healthcare-green: #0AA779;   /* Healthcare Green: Highlights, secondary accents, badges */
+  --light-green: #E8F8F1;        /* Light Green: Soft background accents */
+  --light-blue: #EAF1FF;         /* Light Blue: Alternating sections, icon containers */
+  --white: #FFFFFF;              /* Dominant background color & clean frames */
+  --soft-background: #F7FAFF;    /* Subtle soft background for hero & body */
+  --primary-text: #172B50;       /* Dark navy text: Headings & main body copy */
+  --muted-text: #64748B;         /* Slate muted text: Subtitles, helper text */
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Shadows */
+  --shadow-subtle: 0 4px 20px rgba(23, 73, 201, 0.05);
+  --shadow-card: 0 12px 32px rgba(16, 59, 155, 0.08);
+  --shadow-hero-circle: 0 24px 50px rgba(16, 59, 155, 0.14);
+  --shadow-badge: 0 8px 20px rgba(10, 167, 121, 0.32);
+  --shadow-btn: 0 8px 22px rgba(23, 73, 201, 0.28);
+  
+  /* Transitions */
+  --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--white);
+  color: var(--primary-text);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-smooth);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+ul {
+  list-style: none;
+}
+
+/* ==========================================================================
+   Header & Navigation (Ultra-Smooth Floating Capsule Transition)
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0px;
+  background-color: var(--white);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(23, 73, 201, 0.06);
+  box-shadow: var(--shadow-subtle);
+  will-change: top, width, max-width, border-radius, box-shadow;
+  transition: top 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-radius 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.4s ease,
+              box-shadow 0.45s ease,
+              border 0.4s ease;
+}
+
+/* Floating Capsule Navbar when Scroll Starts */
+.site-header.scrolled-capsule {
+  top: 14px;
+  width: calc(100% - 3.5rem);
+  max-width: 1140px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(23, 73, 201, 0.12);
+  box-shadow: 0 16px 42px rgba(16, 59, 155, 0.15);
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  transition: padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-header.scrolled-capsule .header-container {
+  padding: 0.45rem 1.75rem;
+}
+
+/* Brand Logo (Enlarged for Prominent Visibility) */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-image {
+  height: 66px;
+  width: auto;
+  object-fit: contain;
+  transition: height 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s ease;
+}
+
+.brand-logo:hover .logo-image {
+  transform: scale(1.02);
+}
+
+.site-header.scrolled-capsule .logo-image {
+  height: 52px;
+}
+
+/* Desktop Navigation Menu */
+.nav-desktop {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.96rem;
+  font-weight: 500;
+  color: var(--primary-text);
+  border-radius: 9999px;
+  transition: var(--transition-smooth);
+}
+
+.nav-link:hover {
+  color: var(--primary-blue);
+  background-color: rgba(23, 73, 201, 0.05);
+}
+
+/* Active Nav State (Matches Mockup exact Royal Blue pill) */
+.nav-link.active {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(23, 73, 201, 0.25);
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Primary Appointment Button (Healthcare Green Pill) */
+.btn-appointment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background-color: var(--healthcare-green);
+  color: var(--white);
+  padding: 0.72rem 1.45rem;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-badge);
+  transition: var(--transition-smooth);
+}
+
+.btn-appointment .btn-icon {
+  stroke: var(--white);
+  flex-shrink: 0;
+}
+
+.btn-appointment:hover {
+  background-color: #088b64;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(10, 167, 121, 0.4);
+}
+
+.btn-appointment:active {
+  transform: translateY(0);
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 2.5px;
+  background-color: var(--primary-text);
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.mobile-toggle.active .hamburger-bar:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg);
+}
+
+.mobile-toggle.active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle.active .hamburger-bar:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* Mobile Menu Drawer */
+.mobile-menu {
+  display: none;
+  background-color: var(--white);
+  padding: 1.5rem 2rem 2rem;
+  border-bottom: 1px solid rgba(23, 73, 201, 0.08);
+  box-shadow: var(--shadow-card);
+}
+
+.site-header.scrolled-capsule .mobile-menu {
+  border-radius: 24px;
+  margin-top: 12px;
+  border: 1px solid rgba(23, 73, 201, 0.1);
+  box-shadow: 0 16px 40px rgba(16, 59, 155, 0.16);
+}
+
+.mobile-menu.open {
+  display: block;
+  animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--primary-text);
+  border-radius: 12px;
+}
+
+.mobile-nav-link.active {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.mobile-menu-action {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+
+/* ==========================================================================
+   Homepage Hero Section
+   Matches Reference Mockup:
+   - Soft background on left
+   - Royal Blue right curved shape that frames the photo and extends to right edge
+   - Circular Doctor & Child frame with thick white border
+   - Floating Green verification badge
+   - "Expert Care for Your Little Ones" with green highlight
+   ========================================================================== */
+
+.hero-section {
+  position: relative;
+  background-color: var(--soft-background);
+  min-height: calc(100vh - 40px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 6.8rem 0 2.8rem;
+}
+
+.hero-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1.12fr 0.98fr;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero Content (Left Column) - Balanced top spacing and spacing toward About section */
+.hero-content {
+  max-width: 620px;
+  position: relative;
+  z-index: 3;
+  padding-top: 1.2rem;
+}
+
+.hero-title {
+  font-size: clamp(2.35rem, 3.9vw, 3.8rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.35rem;
+}
+
+/* Healthcare Green Highlighted Text */
+.highlight-green {
+  color: var(--healthcare-green);
+  display: inline-block;
+  position: relative;
+}
+
+.hero-description {
+  font-size: 1.08rem;
+  color: var(--muted-text);
+  line-height: 1.68;
+  margin-bottom: 2.2rem;
+  max-width: 530px;
+}
+
+/* CTA Buttons Group */
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* General Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.92rem 2.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+/* Primary Royal Blue Button */
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  box-shadow: var(--shadow-btn);
+}
+
+.btn-primary:hover {
+  background-color: var(--deep-blue);
+  transform: translateY(-2.5px);
+  box-shadow: 0 12px 28px rgba(16, 59, 155, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Outline Secondary Button */
+.btn-outline {
+  background-color: var(--white);
+  color: var(--primary-blue);
+  border: 1.5px solid #D2E0F5;
+  box-shadow: 0 2px 8px rgba(23, 73, 201, 0.04);
+}
+
+.btn-outline:hover {
+  background-color: var(--light-blue);
+  border-color: var(--primary-blue);
+  color: var(--deep-blue);
+  transform: translateY(-2.5px);
+  box-shadow: 0 8px 20px rgba(23, 73, 201, 0.12);
+}
+
+.btn-outline:active {
+  transform: translateY(0);
+}
+
+/* Pop-in Entrance Animations for Texts & Elements */
+.pop-in {
+  opacity: 0;
+  transform: translateY(22px) scale(0.98);
+  animation: popInItem 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--pop-delay, 0s) forwards;
+}
+
+@keyframes popInItem {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.008);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   Compact Unified Stat Card (Clean, Sleek & Professional)
+   Single cohesive card without any top separation divider line
+   ========================================================================== */
+
+.hero-stats-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--white);
+  border: 1px solid rgba(23, 73, 201, 0.1);
+  border-radius: 16px;
+  padding: 0.85rem 1.4rem;
+  box-shadow: 0 8px 24px rgba(23, 73, 201, 0.05);
+  margin-top: 1rem;
+  max-width: 520px;
+  width: 100%;
+  transition: var(--transition-smooth);
+}
+
+.hero-stats-compact:hover {
+  transform: translateY(-2px);
+  border-color: rgba(23, 73, 201, 0.22);
+  box-shadow: 0 12px 30px rgba(23, 73, 201, 0.09);
+}
+
+.stat-compact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  gap: 0.15rem;
+}
+
+.stat-compact-item .stat-number {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-family: var(--font-main);
+  display: inline-block;
+}
+
+.stat-compact-item .stat-blue {
+  color: var(--primary-blue);
+}
+
+.stat-compact-item .stat-green {
+  color: var(--healthcare-green);
+}
+
+.stat-compact-item .stat-deep {
+  color: var(--deep-blue);
+}
+
+.stat-compact-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.stat-compact-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--primary-text);
+  white-space: nowrap;
+}
+
+.stat-compact-sub {
+  font-size: 0.72rem;
+  color: var(--muted-text);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Vertical Thin Dividers between the 3 stats */
+.stat-compact-divider {
+  width: 1px;
+  height: 36px;
+  background-color: rgba(23, 73, 201, 0.1);
+  margin: 0 0.85rem;
+  flex-shrink: 0;
+}
+
+
+/* ==========================================================================
+   Hero Visual (Right Column Layout)
+   Matching the circular doctor frame + blue semi-circle + green badge
+   ========================================================================== */
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* 
+ * Royal Blue Semi-Circle Backdrop
+ * Expands smoothly from the right when the page loads
+ */
+.hero-blue-semicircle {
+  position: absolute;
+  top: 50%;
+  right: -2000px; /* Expands to full screen edge */
+  left: 20%;      /* Semi-circle boundary behind the circular photo */
+  height: clamp(520px, 58vw, 760px);
+  background-color: var(--primary-blue);
+  border-top-left-radius: 380px;
+  border-bottom-left-radius: 380px;
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: right center;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  animation: growSemiCircle 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
+}
+
+@keyframes growSemiCircle {
+  0% {
+    transform: translateY(-50%) scaleX(0) translateX(40px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-50%) scaleX(1) translateX(0);
+    opacity: 1;
+  }
+}
+
+.hero-visual-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Circular Doctor Frame with Thick White Border (Pops In Over Semi-Circle) */
+.hero-circle-frame {
+  width: clamp(310px, 33vw, 430px);
+  height: clamp(310px, 33vw, 430px);
+  border-radius: 50%;
+  border: 12px solid var(--white);
+  box-shadow: var(--shadow-hero-circle);
+  overflow: hidden;
+  position: relative;
+  background-color: var(--white);
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.65) translateY(20px);
+  animation: popInDoctorCircle 0.88s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+}
+
+@keyframes popInDoctorCircle {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(20px) rotate(-3deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.025) translateY(-3px) rotate(0.8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+.hero-circle-frame:hover {
+  transform: scale(1.025);
+  box-shadow: 0 30px 60px rgba(16, 59, 155, 0.22);
+}
+
+.hero-doctor-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Floating Healthcare Green Checkmark Badge (Pops in after photo) */
+.hero-badge-check {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 64px;
+  height: 64px;
+  background-color: var(--healthcare-green);
+  color: var(--white);
+  border-radius: 50%;
+  border: 4.5px solid var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-badge);
+  z-index: 4;
+  opacity: 0;
+  transform: scale(0);
+  animation: popInBadge 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.68s forwards, pulseBadge 3.5s infinite ease-in-out 1.4s;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popInBadge {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-20deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.15) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.hero-badge-check:hover {
+  transform: scale(1.15) rotate(8deg);
+}
+
+@keyframes pulseBadge {
+  0%, 100% {
+    box-shadow: 0 8px 20px rgba(10, 167, 121, 0.32);
+  }
+  50% {
+    box-shadow: 0 12px 28px rgba(10, 167, 121, 0.55);
+  }
+}
+
+
+/* ==========================================================================
+   Homepage About Section
+   Matching exact layout from reference:
+   Doctor cutout over blue-to-green gradient backdrop,
+   Tag, Title, Description, Learn More link & 3 compact feature cards.
+   ========================================================================== */
+
+.about-section {
+  position: relative;
+  background-color: var(--white);
+  padding: clamp(3.4rem, 5.2vw, 4.8rem) 0 clamp(4.5rem, 6.5vw, 6.5rem);
+  overflow: hidden;
+}
+
+.about-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 0.98fr 1.15fr;
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+/* 
+ * Left Visual Column: Doctor cutout with Large Circle Backdrop
+ * Doctor image comes from down and settles directly into the bg circle
+ * Doctor's head extends gracefully above the top of the circle (100% unclipped & visible)
+ * Doctor's folded hands are framed comfortably inside the circle width
+ * Doctor's bottom starts flush with the bottom curve of the circle
+ */
+.about-visual-col {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.about-visual-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-top: 55px; /* Headroom allowing head to extend above circle without any clipping */
+  overflow: visible; /* Head extends above circle and stays 100% visible */
+}
+
+/* 
+ * Gradient Backdrop Circle
+ * Smooth vibrant royal blue to healthcare green gradient
+ */
+.about-gradient-backdrop {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.92);
+  width: clamp(390px, 42vw, 460px);
+  height: clamp(390px, 42vw, 460px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1749C9 0%, #0AA779 100%);
+  box-shadow: 0 24px 55px rgba(23, 73, 201, 0.22), 0 10px 24px rgba(10, 167, 121, 0.16);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.about-visual-wrapper.is-visible .about-gradient-backdrop {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* 
+ * Doctor Cutout Image
+ * Settles with folded hands framed comfortably inside the circle
+ * Bottom starts flush at the bottom curve of the circle
+ * Head extends gracefully above the top circle curve into the section
+ */
+.about-doctor-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: clamp(315px, 34vw, 355px);
+  height: auto;
+  display: block;
+  margin-bottom: 0; /* Starts directly from the bottom of the circle */
+  filter: drop-shadow(0 16px 30px rgba(16, 43, 80, 0.14));
+  opacity: 0;
+  transform: translateY(85px);
+  transition: opacity 0.75s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.about-visual-wrapper.is-visible .about-doctor-img {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-visual-wrapper.is-visible:hover .about-doctor-img {
+  transform: translateY(-4px) scale(1.015);
+  transition: transform 0.35s ease;
+}
+
+/* 
+ * Right Content Column
+ */
+.about-content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
+}
+
+.about-header-group {
+  margin-bottom: 2rem;
+}
+
+.about-tag {
+  display: inline-block;
+  color: var(--primary-blue);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.about-title {
+  font-size: clamp(2.1rem, 3.4vw, 2.75rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.15rem;
+}
+
+.about-description {
+  font-size: 1.02rem;
+  line-height: 1.72;
+  color: var(--muted-text);
+  margin-bottom: 1.3rem;
+  max-width: 580px;
+}
+
+/* Learn More Link with Animated Arrow */
+.about-learn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-blue);
+  font-weight: 700;
+  font-size: 1.02rem;
+  text-decoration: none;
+  border-bottom: 2px solid var(--primary-blue);
+  padding-bottom: 3px;
+  width: fit-content;
+  transition: var(--transition-smooth);
+}
+
+.about-learn-arrow {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-learn-link:hover {
+  color: var(--deep-blue);
+  border-bottom-color: var(--deep-blue);
+}
+
+.about-learn-link:hover .about-learn-arrow {
+  transform: translateX(5px);
+}
+
+/* 
+ * 3 Compact Service/Feature Cards
+ * Fits neatly within container without exceeding screen boundaries
+ */
+.about-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 580px;
+}
+
+.about-card {
+  background-color: #F0F5FD;
+  border: 1px solid rgba(23, 73, 201, 0.08);
+  border-radius: 18px;
+  padding: 0.65rem 0.65rem 0.85rem;
+  box-shadow: 0 4px 16px rgba(16, 59, 155, 0.04);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s ease,
+              border-color 0.28s ease,
+              background-color 0.28s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  background-color: var(--white);
+  border-color: rgba(23, 73, 201, 0.2);
+  box-shadow: 0 12px 28px rgba(16, 59, 155, 0.09);
+}
+
+.about-card-img-box {
+  width: 100%;
+  height: 106px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--white);
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(23, 73, 201, 0.05);
+}
+
+.about-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.about-card:hover .about-card-img {
+  transform: scale(1.05);
+}
+
+.about-card-info {
+  padding: 0.65rem 0.25rem 0.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-text);
+  line-height: 1.25;
+  margin-bottom: 0.2rem;
+  white-space: normal;
+}
+
+.about-card-sub {
+  font-size: 0.78rem;
+  color: var(--muted-text);
+  font-weight: 500;
+}
+
+
+/* ==========================================================================
+   Comprehensive Pediatric Care - Specialties & Programs Section
+   Ultra-Professional Modern Medical Styling.
+   Clean Crisp White Cards on Soft Calming Medical Backdrop (#F8FAFD),
+   Floating Top-Border Icon Badges with Distinct Harmonic Pastel Shades,
+   Refined Dark Navy Typography, and Interactive Royal Blue / Green Accent CTAs.
+   ========================================================================== */
+
+.specialties-section {
+  position: relative;
+  background: linear-gradient(180deg, #F0FAF5 0%, #E7F6EF 50%, #DDF2E7 100%);
+  border-top: 1px solid rgba(10, 167, 121, 0.12);
+  border-bottom: 1px solid rgba(10, 167, 121, 0.12);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.4rem, 2.5vh, 2.6rem) 0;
+  overflow: hidden;
+}
+
+.specialties-container {
+  max-width: 1220px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Compact Centered Section Header */
+.specialties-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto clamp(0.7rem, 1.5vh, 1.3rem);
+}
+
+.specialties-tag {
+  display: inline-block;
+  color: var(--healthcare-green);
+  background: rgba(10, 167, 121, 0.09);
+  border: 1px solid rgba(10, 167, 121, 0.2);
+  padding: 0.32rem 0.95rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+
+.specialties-title {
+  font-size: clamp(1.85rem, 2.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.specialties-subtitle {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--muted-text);
+  margin: 0 auto;
+  max-width: 620px;
+}
+
+/* 3x2 Grid Layout with Headroom for Top-Border Floating Icons */
+.specialties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: clamp(1rem, 1.6vw, 1.5rem);
+  row-gap: clamp(2.5rem, 4.4vh, 3.4rem);
+  margin-top: clamp(2.1rem, 3.6vh, 2.8rem); /* Generous headroom for floating badges */
+}
+
+/* Ultra-Clean, Modern Medical Card */
+.specialty-card {
+  position: relative;
+  background: var(--white);
+  border: 1.5px solid rgba(23, 73, 201, 0.09);
+  border-radius: 22px;
+  padding: 48px clamp(1.15rem, 1.5vw, 1.45rem) 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0 10px 30px rgba(16, 59, 155, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+  cursor: default;
+  overflow: visible; /* Allows icons to sit half over the top border */
+  /* Card Base State - Always Visible & Interactive */
+  opacity: 1;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease;
+  will-change: transform, box-shadow;
+}
+
+/* Staggered Scroll Entrance Animations */
+@keyframes specialtyCardPopUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.specialties-section.is-visible .specialty-card {
+  animation: specialtyCardPopUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.specialties-section.is-visible .specialty-card[data-index="1"] { animation-delay: 0.05s; }
+.specialties-section.is-visible .specialty-card[data-index="2"] { animation-delay: 0.12s; }
+.specialties-section.is-visible .specialty-card[data-index="3"] { animation-delay: 0.19s; }
+.specialties-section.is-visible .specialty-card[data-index="4"] { animation-delay: 0.26s; }
+.specialties-section.is-visible .specialty-card[data-index="5"] { animation-delay: 0.33s; }
+.specialties-section.is-visible .specialty-card[data-index="6"] { animation-delay: 0.40s; }
+
+/* Subtle top gradient accent on hover */
+.specialty-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* Interactive Card Hover */
+.specialty-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(23, 73, 201, 0.22);
+  box-shadow: 0 20px 45px rgba(23, 73, 201, 0.13), 0 6px 16px rgba(10, 167, 121, 0.06);
+}
+
+.specialty-card:hover::before {
+  opacity: 1;
+}
+
+/* Floating Icon Wrapper: Centered on Top Border (Half In / Half Over) */
+.specialty-card-icon-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.specialty-card:hover .specialty-card-icon-wrap {
+  transform: translate(-50%, -55%) scale(1.08);
+}
+
+/* Distinct Darker Rich Circle Backdrop with Pure White Elevation Ring */
+.icon-circle-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 8px 24px rgba(16, 59, 155, 0.16), 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  z-index: 1;
+}
+
+.specialty-card:hover .icon-circle-bg {
+  transform: scale(1.08);
+}
+
+/* Distinct Darker Gradient Shades for Each Specialty Icon */
+/* 1. Newborn Care - Warm Golden Amber */
+.icon-circle-amber {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  box-shadow: 0 8px 22px rgba(217, 119, 6, 0.35);
+}
+.specialty-card:hover .icon-circle-amber {
+  box-shadow: 0 12px 28px rgba(217, 119, 6, 0.5);
+}
+
+/* 2. Allergy & Asthma - Rich Coral Crimson / Warm Rose */
+.icon-circle-rose {
+  background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%);
+  box-shadow: 0 8px 22px rgba(225, 29, 72, 0.35);
+}
+.specialty-card:hover .icon-circle-rose {
+  box-shadow: 0 12px 28px rgba(225, 29, 72, 0.5);
+}
+
+/* 3. Immunization - Vibrant Healthcare Emerald Green */
+.icon-circle-mint {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  box-shadow: 0 8px 22px rgba(5, 150, 105, 0.38);
+}
+.specialty-card:hover .icon-circle-mint {
+  box-shadow: 0 12px 28px rgba(5, 150, 105, 0.55);
+}
+
+/* 4. Childhood Nutrition - Fresh Leafy Lime */
+.icon-circle-lime {
+  background: linear-gradient(135deg, #84CC16 0%, #65A30D 100%);
+  box-shadow: 0 8px 22px rgba(101, 163, 13, 0.35);
+}
+.specialty-card:hover .icon-circle-lime {
+  box-shadow: 0 12px 28px rgba(101, 163, 13, 0.5);
+}
+
+/* 5. Developmental Milestones - Deep Royal Purple / Violet */
+.icon-circle-violet {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.38);
+}
+.specialty-card:hover .icon-circle-violet {
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.55);
+}
+
+/* 6. Pediatric Urgent Care - Vibrant Ocean Cyan / Sky Blue */
+.icon-circle-cyan {
+  background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
+  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.38);
+}
+.specialty-card:hover .icon-circle-cyan {
+  box-shadow: 0 12px 28px rgba(2, 132, 199, 0.55);
+}
+
+/* Big Crisp Icon */
+.specialty-card-icon {
+  position: relative;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.22));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.specialty-card:hover .specialty-card-icon {
+  transform: scale(1.1);
+}
+
+/* Refined Medical Typography */
+.specialty-card-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.38rem;
+  transition: color 0.25s ease;
+}
+
+.specialty-card:hover .specialty-card-title {
+  color: var(--primary-blue);
+}
+
+.specialty-card-desc {
+  font-size: 0.88rem;
+  line-height: 1.52;
+  color: var(--muted-text);
+  margin: 0 0 0.95rem;
+  flex-grow: 1;
+}
+
+/* Professional Solid Pill CTA (#1749c9 with White Text) */
+.specialty-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #1749c9;
+  color: #FFFFFF;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 0.44rem 1.25rem;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(23, 73, 201, 0.28);
+  margin-top: auto;
+  transition: background 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.specialty-card-cta svg {
+  stroke: #FFFFFF;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.specialty-card:hover .specialty-card-cta {
+  background: #103B9B;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(23, 73, 201, 0.4);
+}
+
+.specialty-card:hover .specialty-card-cta svg {
+  transform: translateX(4px);
+}
+
+/* Mobile Action CTA: Green Pulsing Button */
+.specialties-mobile-action {
+  display: none; /* Hidden on desktop */
+}
+
+.btn-show-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, var(--healthcare-green) 0%, #088b64 100%);
+  color: var(--white);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 0.85rem 2.25rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(10, 167, 121, 0.35);
+  animation: pulse-green 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-show-more:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(10, 167, 121, 0.48);
+}
+
+.btn-show-more:active {
+  transform: translateY(0);
+}
+
+.btn-show-more-icon {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.specialties-grid.is-expanded + .specialties-mobile-action .btn-show-more-icon {
+  transform: rotate(180deg);
+}
+
+.specialties-grid.is-expanded + .specialties-mobile-action .btn-show-more {
+  animation: none;
+  background: #088b64;
+  box-shadow: 0 4px 14px rgba(10, 167, 121, 0.25);
+}
+
+/* Green Pulsing Ring Animation */
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(10, 167, 121, 0.65), 0 8px 24px rgba(10, 167, 121, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(10, 167, 121, 0), 0 8px 24px rgba(10, 167, 121, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(10, 167, 121, 0), 0 8px 24px rgba(10, 167, 121, 0.35);
+  }
+}
+
+/* Responsive Overrides for Specialties Section */
+@media (max-width: 1024px) {
+  .specialties-section {
+    min-height: auto;
+    padding: 3.5rem 0 4rem;
+  }
+
+  .specialties-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 3.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .specialties-section {
+    min-height: auto;
+    padding: 3.2rem 0 3.8rem;
+    display: block;
+  }
+
+  .specialties-container {
+    padding: 0 1.25rem;
+  }
+
+  .specialties-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .specialties-title {
+    font-size: 1.95rem;
+  }
+
+  .specialties-subtitle {
+    font-size: 0.94rem;
+  }
+
+  .specialties-grid {
+    grid-template-columns: 1fr;
+    row-gap: 3.4rem;
+    margin-top: 2.6rem;
+  }
+
+  /* In mobile phones: show only first 3 cards by default */
+  .specialties-grid:not(.is-expanded) .specialty-card:nth-child(n+4) {
+    display: none;
+  }
+
+  /* Animate appearance of revealed cards 4, 5, 6 */
+  .specialties-grid.is-expanded .specialty-card:nth-child(n+4) {
+    display: flex;
+    animation: specialtyCardEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .specialties-mobile-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.2rem;
+  }
+
+  .specialty-card {
+    padding: 50px 1.4rem 1.4rem;
+    border-radius: 20px;
+    opacity: 1; /* Instantly visible on mobile */
+    transform: none;
+  }
+
+  .specialty-card-icon-wrap {
+    width: 74px;
+    height: 74px;
+  }
+
+  .specialty-card-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .specialty-card-title {
+    font-size: 1.24rem;
+  }
+
+  .specialty-card-desc {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .specialties-title {
+    font-size: 1.76rem;
+  }
+
+  .btn-show-more {
+    width: 100%;
+    max-width: 290px;
+  }
+}
+
+@keyframes specialtyCardEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Why Choose Us Section (Dark Luxury Card Design)
+   ========================================================================== */
+.why-choose-section {
+  position: relative;
+  background: #F4F9FD;
+  padding: clamp(3.5rem, 5.5vw, 5.2rem) 1.5rem;
+  overflow: hidden;
+}
+
+.why-choose-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  border-radius: 32px;
+  background: radial-gradient(circle at 50% 0%, rgba(23, 73, 201, 0.42) 0%, transparent 65%),
+              radial-gradient(circle at 85% 90%, rgba(10, 167, 121, 0.22) 0%, transparent 55%),
+              linear-gradient(145deg, #0F2347 0%, #0A1935 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(11, 25, 51, 0.26), 0 4px 18px rgba(11, 25, 51, 0.12);
+  padding: clamp(2.8rem, 4.5vw, 4rem) clamp(1.2rem, 2.8vw, 2.5rem) 0;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  align-items: flex-end;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  overflow: hidden;
+  position: relative;
+}
+
+.why-choose-visual {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  background: radial-gradient(ellipse at 50% 95%, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+}
+
+.why-choose-visual-left {
+  justify-content: flex-start;
+}
+
+.why-choose-visual-right {
+  justify-content: flex-end;
+}
+
+.why-choose-img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.35));
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.why-choose-section:hover .why-choose-img {
+  transform: translateY(-4px);
+}
+
+.why-choose-content {
+  text-align: center;
+  align-self: center;
+  padding-bottom: clamp(2.5rem, 4.5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.why-choose-tag {
+  display: inline-block;
+  color: #4DE2B9;
+  background: rgba(10, 167, 121, 0.22);
+  border: 1px solid rgba(77, 226, 185, 0.32);
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.why-choose-title {
+  font-size: clamp(2.1rem, 3.4vw, 2.85rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.25);
+}
+
+.why-choose-desc {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #D6E4F5;
+  max-width: 540px;
+  margin: 0 auto clamp(1.5rem, 2.5vw, 2.2rem);
+}
+
+.btn-why-choose {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, #0AA779 0%, #078C64 100%);
+  color: #FFFFFF;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 0.88rem 2.4rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 28px rgba(10, 167, 121, 0.42);
+  transition: background 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.btn-why-choose svg {
+  stroke: #FFFFFF;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-why-choose:hover {
+  background: linear-gradient(135deg, #0DC58E 0%, #0AA779 100%);
+  color: #FFFFFF;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(10, 167, 121, 0.55);
+}
+
+.btn-why-choose:hover svg {
+  transform: translateX(4px);
+}
+
+/* Responsive Overrides for Why Choose Us */
+@media (max-width: 1024px) {
+  .why-choose-section {
+    padding: 3.2rem 1.25rem;
+  }
+
+  .why-choose-container {
+    border-radius: 26px;
+    grid-template-columns: 0.95fr 1.25fr 0.95fr;
+    gap: 1.2rem;
+    padding: 2.6rem 1.25rem 0;
+  }
+
+  .why-choose-img {
+    max-width: 250px;
+  }
+
+  .why-choose-title {
+    font-size: 2.15rem;
+  }
+
+  .why-choose-desc {
+    font-size: 0.98rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-choose-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .why-choose-container {
+    border-radius: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+    padding: 2.2rem 1rem 0;
+  }
+
+  .why-choose-content {
+    width: 100%;
+    order: 1;
+    padding-bottom: 2rem;
+    max-width: 480px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .why-choose-title {
+    font-size: 1.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .why-choose-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-why-choose {
+    width: 100%;
+    max-width: 270px;
+    justify-content: center;
+    padding: 0.82rem 1.8rem;
+    font-size: 0.96rem;
+  }
+
+  .why-choose-visual-left {
+    width: 50%;
+    order: 2;
+    justify-content: center;
+    align-items: flex-end;
+    padding-right: 4px;
+  }
+
+  .why-choose-visual-right {
+    width: 50%;
+    order: 3;
+    justify-content: center;
+    align-items: flex-end;
+    padding-left: 4px;
+  }
+
+  .why-choose-img {
+    width: 100%;
+    max-width: 145px;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 440px) {
+  .why-choose-section {
+    padding: 2rem 0.75rem;
+  }
+
+  .why-choose-container {
+    border-radius: 18px;
+    padding: 1.8rem 0.75rem 0;
+  }
+
+  .why-choose-title {
+    font-size: 1.7rem;
+  }
+
+  .why-choose-desc {
+    font-size: 0.88rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .btn-why-choose {
+    max-width: 250px;
+    padding: 0.78rem 1.5rem;
+    font-size: 0.92rem;
+  }
+
+  .why-choose-img {
+    max-width: 130px;
+  }
+}
+
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Large Tablets & Small Laptops (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+  }
+
+  .hero-blue-semicircle {
+    left: 15%;
+    height: 520px;
+  }
+
+  .hero-circle-frame {
+    width: 340px;
+    height: 340px;
+    border-width: 10px;
+  }
+
+  .nav-links {
+    gap: 0.3rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.92rem;
+  }
+
+  .hero-stats-compact {
+    max-width: 480px;
+    padding: 0.75rem 1.1rem;
+  }
+
+  .stat-compact-item .stat-number {
+    font-size: 1.35rem;
+  }
+
+  .stat-compact-title {
+    font-size: 0.78rem;
+  }
+
+  .stat-compact-sub {
+    font-size: 0.7rem;
+  }
+}
+
+/* Tablets (max-width: 868px) */
+@media (max-width: 868px) {
+  .site-header.scrolled-capsule {
+    width: calc(100% - 2rem);
+    top: 10px;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .hero-section {
+    padding: 6.5rem 0 3.2rem; /* space for fixed header */
+  }
+
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
+  }
+
+  /* Unwraps .hero-content on mobile so flex order can place elements customly */
+  .hero-content {
+    display: contents;
+  }
+
+  /* 1. Heading First */
+  .hero-title {
+    order: 1;
+    margin-bottom: 0.2rem;
+  }
+
+  /* 2. Doctor Image Directly After Heading! */
+  .hero-visual {
+    order: 2;
+    margin: 1rem auto 1.3rem;
+    width: 100%;
+  }
+
+  /* 3. Description After Image */
+  .hero-description {
+    order: 3;
+    max-width: 520px;
+    margin: 0 auto 1.4rem;
+  }
+
+  /* 4. Action Buttons */
+  .hero-cta-group {
+    order: 4;
+    justify-content: center;
+    margin-bottom: 1.4rem;
+    width: 100%;
+  }
+
+  /* 5. Compact Unified Stats Card */
+  .hero-stats-compact {
+    order: 5;
+    margin: 0 auto;
+    max-width: 480px;
+  }
+
+  /* Centered circular backdrop with smooth mobile grow animation */
+  .hero-blue-semicircle {
+    left: 50%;
+    right: auto;
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transform-origin: center center;
+    animation: growMobileCircle 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  }
+
+  @keyframes growMobileCircle {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .hero-circle-frame {
+    width: 290px;
+    height: 290px;
+  }
+
+  /* About Section Tablet Styles */
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+    text-align: center;
+  }
+
+  .about-visual-col {
+    order: 1;
+  }
+
+  .about-content-col {
+    order: 2;
+    align-items: center;
+  }
+
+  .about-header-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.8rem;
+  }
+
+  .about-description {
+    margin: 0 auto 1.3rem;
+  }
+
+  .about-learn-link {
+    margin: 0 auto;
+  }
+
+  .about-cards-grid {
+    margin: 0 auto;
+  }
+}
+
+/* Mobile Phones (max-width: 580px) */
+@media (max-width: 580px) {
+  .header-container {
+    padding: 0.6rem 1.2rem;
+  }
+
+  .logo-image {
+    height: 50px;
+  }
+
+  .site-header.scrolled-capsule .logo-image {
+    height: 42px;
+  }
+
+  .btn-appointment {
+    padding: 0.6rem 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  .btn-appointment span {
+    display: none;
+  }
+
+  .hero-section {
+    padding: 5.5rem 0 2.8rem;
+  }
+
+  .hero-title {
+    font-size: 2.15rem;
+  }
+
+  .hero-description {
+    font-size: 0.98rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  /* Compact Single Card on Mobile */
+  .hero-stats-compact {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.65rem 0.8rem;
+    border-radius: 14px;
+    margin-top: 0.4rem;
+  }
+
+  .stat-compact-item .stat-number {
+    font-size: 1.22rem;
+  }
+
+  .stat-compact-title {
+    font-size: 0.74rem;
+  }
+
+  .stat-compact-sub {
+    font-size: 0.66rem;
+  }
+
+  .stat-compact-divider {
+    height: 28px;
+    margin: 0 0.45rem;
+  }
+
+  .hero-blue-semicircle {
+    width: 280px;
+    height: 280px;
+  }
+
+  .hero-circle-frame {
+    width: 250px;
+    height: 250px;
+    border-width: 8px;
+  }
+
+  .hero-badge-check {
+    width: 50px;
+    height: 50px;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .hero-badge-check svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* About Section Mobile Styles */
+  .about-section {
+    padding: 2.8rem 0 3.5rem;
+  }
+
+  .about-container {
+    padding: 0 1.25rem;
+    gap: 2rem;
+  }
+
+  .about-visual-wrapper {
+    width: 100%;
+    max-width: 330px;
+    height: auto;
+    padding-top: 45px;
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  .about-gradient-backdrop {
+    width: 290px;
+    height: 290px;
+    bottom: 0px;
+  }
+
+  .about-doctor-img {
+    max-width: 225px;
+    margin-bottom: 0;
+  }
+
+  .about-cards-grid {
+    gap: 0.65rem;
+  }
+
+  .about-card {
+    padding: 0.5rem 0.5rem 0.75rem;
+    border-radius: 14px;
+  }
+
+  .about-card-img-box {
+    height: 76px;
+    border-radius: 10px;
+  }
+
+  .about-card-title {
+    font-size: 0.82rem;
+  }
+
+  .about-card-sub {
+    font-size: 0.7rem;
+  }
+}
+
+/* Small Smart Phones (max-width: 440px) */
+@media (max-width: 440px) {
+  .about-cards-grid {
+    grid-template-columns: repeat(3, minmax(130px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 0.6rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .about-card {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
