@@ -8,9 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.getElementById('header');
   const mobileToggle = document.getElementById('mobileToggle');
   const mobileMenu = document.getElementById('mobileMenu');
+  const navBackdrop = document.getElementById('navBackdrop');
   const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  const mobileCta = document.querySelector('.mobile-menu .btn-appointment');
 
-  // 1. Mobile Menu Drawer Toggle
+  // 1. Mobile Menu Drawer Toggle with Scroll Lock & Background Blur
   if (mobileToggle && mobileMenu) {
     mobileToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -22,24 +24,48 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Close menu when clicking outside
+    // Close menu when clicking outside or on blurred backdrop
     document.addEventListener('click', (e) => {
       if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
         closeMobileNav();
       }
     });
+
+    if (navBackdrop) {
+      navBackdrop.addEventListener('click', closeMobileNav);
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        closeMobileNav();
+      }
+    });
+
+    // Close menu when tapping mobile CTA button
+    if (mobileCta) {
+      mobileCta.addEventListener('click', closeMobileNav);
+    }
   }
 
   function openMobileNav() {
     mobileToggle.classList.add('active');
     mobileToggle.setAttribute('aria-expanded', 'true');
     mobileMenu.classList.add('open');
+    header.classList.add('menu-open');
+    document.documentElement.classList.add('nav-open');
+    document.body.classList.add('nav-open');
+    if (navBackdrop) navBackdrop.classList.add('active');
   }
 
   function closeMobileNav() {
     mobileToggle.classList.remove('active');
     mobileToggle.setAttribute('aria-expanded', 'false');
     mobileMenu.classList.remove('open');
+    header.classList.remove('menu-open');
+    document.documentElement.classList.remove('nav-open');
+    document.body.classList.remove('nav-open');
+    if (navBackdrop) navBackdrop.classList.remove('active');
   }
 
   // 2. Active Nav Link Handling
@@ -211,5 +237,59 @@ document.addEventListener('DOMContentLoaded', () => {
     specObserver.observe(specialtiesSec);
   } else if (specialtiesSec) {
     specialtiesSec.classList.add('is-visible');
+  }
+
+  // 8. About Page Dr. Patel's Journey Banner Popup Animation
+  const journeySec = document.getElementById('dr-journey');
+  if (journeySec) {
+    const revealJourney = () => {
+      journeySec.classList.add('is-visible');
+    };
+
+    if ('IntersectionObserver' in window) {
+      const journeyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            revealJourney();
+            journeyObserver.disconnect();
+          }
+        });
+      }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+      journeyObserver.observe(journeySec);
+    } else {
+      revealJourney();
+    }
+  }
+
+  // 9. About Page Care Philosophy Section Scroll Entrance Animation
+  const philosophySec = document.getElementById('care-philosophy');
+  if (philosophySec && 'IntersectionObserver' in window) {
+    const philObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          philosophySec.classList.add('is-visible');
+          philObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.12 });
+    philObserver.observe(philosophySec);
+  } else if (philosophySec) {
+    philosophySec.classList.add('is-visible');
+  }
+
+  // 10. About Page Community Section Scroll Entrance Animation
+  const communitySec = document.getElementById('community');
+  if (communitySec && 'IntersectionObserver' in window) {
+    const commObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          communitySec.classList.add('is-visible');
+          commObserver.disconnect();
+        }
+      });
+    }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+    commObserver.observe(communitySec);
+  } else if (communitySec) {
+    communitySec.classList.add('is-visible');
   }
 });

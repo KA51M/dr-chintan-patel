@@ -263,63 +263,115 @@ ul {
   transform: translateY(-8.5px) rotate(-45deg);
 }
 
-/* Mobile Menu Drawer */
+html.nav-open,
+body.nav-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Blurred Full-Screen Backdrop when Mobile Menu is Open */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 25, 51, 0.36);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Mobile Menu Drawer (Detached Floating Panel so Top Capsule Stays Intact) */
 .mobile-menu {
   display: none;
-  background-color: var(--white);
-  padding: 1.5rem 2rem 2rem;
-  border-bottom: 1px solid rgba(23, 73, 201, 0.08);
-  box-shadow: var(--shadow-card);
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 1rem;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 1.4rem 1.5rem 1.65rem;
+  border-radius: 22px;
+  border: 1.5px solid rgba(23, 73, 201, 0.12);
+  box-shadow: 0 22px 50px rgba(11, 25, 51, 0.22);
+  z-index: 1001;
 }
 
 .site-header.scrolled-capsule .mobile-menu {
+  left: 0;
+  right: 0;
+  top: calc(100% + 12px);
   border-radius: 24px;
-  margin-top: 12px;
-  border: 1px solid rgba(23, 73, 201, 0.1);
-  box-shadow: 0 16px 40px rgba(16, 59, 155, 0.16);
+  border: 1.5px solid rgba(23, 73, 201, 0.14);
+  box-shadow: 0 22px 50px rgba(11, 25, 51, 0.22);
 }
 
 .mobile-menu.open {
   display: block;
-  animation: slideDown 0.3s ease forwards;
+  animation: slideDown 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .mobile-nav-link {
   display: block;
-  padding: 0.8rem 1.2rem;
-  font-size: 1.05rem;
-  font-weight: 500;
+  padding: 0.78rem 1.15rem;
+  font-size: 1.02rem;
+  font-weight: 600;
   color: var(--primary-text);
-  border-radius: 12px;
+  border-radius: 14px;
+  transition: var(--transition-smooth);
+}
+
+.mobile-nav-link:hover {
+  background-color: rgba(23, 73, 201, 0.06);
+  color: var(--primary-blue);
 }
 
 .mobile-nav-link.active {
   background-color: var(--primary-blue);
   color: var(--white);
   font-weight: 600;
+  box-shadow: 0 4px 12px rgba(23, 73, 201, 0.25);
 }
 
 .mobile-menu-action {
-  margin-top: 1.5rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(23, 73, 201, 0.08);
+}
+
+.mobile-menu-action .btn-appointment {
+  padding: 0.85rem 1.4rem;
+  font-size: 0.96rem;
+}
+
+.mobile-menu-action .btn-appointment span {
+  display: inline !important;
 }
 
 .btn-block {
@@ -609,12 +661,101 @@ ul {
 
 .hero-visual-wrapper {
   position: relative;
-  width: 100%;
-  max-width: 460px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
+}
+
+/* Floating 4.9 Google Ratings Badge */
+.hero-google-badge {
+  position: absolute;
+  top: 14px;
+  left: -62px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(23, 73, 201, 0.12);
+  border-radius: 18px;
+  padding: 0.6rem 0.95rem;
+  box-shadow: 0 16px 36px rgba(16, 59, 155, 0.16), 0 4px 12px rgba(0, 0, 0, 0.04);
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(14px) scale(0.9);
+  animation: popInGoogleBadge 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.78s forwards;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.hero-google-badge:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 20px 42px rgba(16, 59, 155, 0.22);
+}
+
+@keyframes popInGoogleBadge {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.88);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.google-badge-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #F4F8FF;
+  border: 1px solid rgba(23, 73, 201, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.google-badge-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.google-badge-top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.15rem;
+}
+
+.google-badge-score {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--primary-text);
+  letter-spacing: -0.02em;
+}
+
+.google-badge-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5px;
+}
+
+.google-badge-label {
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--muted-text);
+  white-space: nowrap;
 }
 
 /* Circular Doctor Frame with Thick White Border (Pops In Over Semi-Circle) */
@@ -828,6 +969,7 @@ ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
   z-index: 2;
 }
 
@@ -891,22 +1033,22 @@ ul {
 }
 
 /* 
- * 3 Compact Service/Feature Cards
- * Fits neatly within container without exceeding screen boundaries
+ * 2 Spacious Service/Feature Cards
+ * Utilizes the right column cleanly and centers harmoniously on mobile
  */
 .about-cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
   width: 100%;
-  max-width: 580px;
+  max-width: 560px;
 }
 
 .about-card {
   background-color: #F0F5FD;
   border: 1px solid rgba(23, 73, 201, 0.08);
   border-radius: 18px;
-  padding: 0.65rem 0.65rem 0.85rem;
+  padding: 0.75rem 0.75rem 1rem;
   box-shadow: 0 4px 16px rgba(16, 59, 155, 0.04);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.28s ease,
@@ -914,6 +1056,7 @@ ul {
               background-color 0.28s ease;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .about-card:hover {
@@ -925,7 +1068,7 @@ ul {
 
 .about-card-img-box {
   width: 100%;
-  height: 106px;
+  height: 118px;
   border-radius: 12px;
   overflow: hidden;
   background-color: var(--white);
@@ -978,9 +1121,11 @@ ul {
 
 .specialties-section {
   position: relative;
-  background: linear-gradient(180deg, #F0FAF5 0%, #E7F6EF 50%, #DDF2E7 100%);
-  border-top: 1px solid rgba(10, 167, 121, 0.12);
-  border-bottom: 1px solid rgba(10, 167, 121, 0.12);
+  background-color: #0AA779;
+  background-image: radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.1) 0%, transparent 48%),
+                    radial-gradient(circle at 85% 82%, rgba(9, 48, 56, 0.16) 0%, transparent 52%);
+  border-top: none;
+  border-bottom: none;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -1008,31 +1153,35 @@ ul {
 
 .specialties-tag {
   display: inline-block;
-  color: var(--healthcare-green);
-  background: rgba(10, 167, 121, 0.09);
-  border: 1px solid rgba(10, 167, 121, 0.2);
-  padding: 0.32rem 0.95rem;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.34rem 1rem;
   border-radius: 50px;
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
 }
 
 .specialties-title {
-  font-size: clamp(1.85rem, 2.5vw, 2.4rem);
+  font-size: clamp(1.9rem, 2.6vw, 2.45rem);
   font-weight: 800;
-  color: var(--primary-text);
+  color: #FFFFFF;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.45rem;
+  text-shadow: 0 2px 14px rgba(5, 84, 60, 0.25);
 }
 
 .specialties-subtitle {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--muted-text);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 500;
   margin: 0 auto;
   max-width: 620px;
 }
@@ -1050,7 +1199,7 @@ ul {
 .specialty-card {
   position: relative;
   background: var(--white);
-  border: 1.5px solid rgba(23, 73, 201, 0.09);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
   border-radius: 22px;
   padding: 48px clamp(1.15rem, 1.5vw, 1.45rem) 1.25rem;
   text-align: center;
@@ -1058,7 +1207,7 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  box-shadow: 0 10px 30px rgba(16, 59, 155, 0.06), 0 2px 8px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 16px 38px rgba(5, 75, 54, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
   cursor: default;
   overflow: visible; /* Allows icons to sit half over the top border */
   /* Card Base State - Always Visible & Interactive */
@@ -1289,16 +1438,16 @@ ul {
   align-items: center;
   justify-content: center;
   gap: 0.65rem;
-  background: linear-gradient(135deg, var(--healthcare-green) 0%, #088b64 100%);
-  color: var(--white);
+  background: #FFFFFF;
+  color: #1749c9;
   font-size: 0.98rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.3px;
   padding: 0.85rem 2.25rem;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(10, 167, 121, 0.35);
+  box-shadow: 0 10px 26px rgba(5, 75, 54, 0.25);
   animation: pulse-green 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   -webkit-tap-highlight-color: transparent;
@@ -1306,7 +1455,7 @@ ul {
 
 .btn-show-more:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(10, 167, 121, 0.48);
+  box-shadow: 0 12px 30px rgba(5, 75, 54, 0.35);
 }
 
 .btn-show-more:active {
@@ -1314,6 +1463,7 @@ ul {
 }
 
 .btn-show-more-icon {
+  stroke: #1749c9;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1323,20 +1473,20 @@ ul {
 
 .specialties-grid.is-expanded + .specialties-mobile-action .btn-show-more {
   animation: none;
-  background: #088b64;
-  box-shadow: 0 4px 14px rgba(10, 167, 121, 0.25);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 6px 18px rgba(5, 75, 54, 0.2);
 }
 
-/* Green Pulsing Ring Animation */
+/* Crisp White Pulsing Ring Animation over #0AA779 */
 @keyframes pulse-green {
   0% {
-    box-shadow: 0 0 0 0 rgba(10, 167, 121, 0.65), 0 8px 24px rgba(10, 167, 121, 0.35);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.65), 0 10px 26px rgba(5, 75, 54, 0.25);
   }
   70% {
-    box-shadow: 0 0 0 16px rgba(10, 167, 121, 0), 0 8px 24px rgba(10, 167, 121, 0.35);
+    box-shadow: 0 0 0 16px rgba(255, 255, 255, 0), 0 10px 26px rgba(5, 75, 54, 0.25);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(10, 167, 121, 0), 0 8px 24px rgba(10, 167, 121, 0.35);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 10px 26px rgba(5, 75, 54, 0.25);
   }
 }
 
@@ -1702,6 +1852,231 @@ ul {
 
 
 /* ==========================================================================
+   Site Footer Section (Matches Reference Deep Navy Layout + Green Socials)
+   ========================================================================== */
+.site-footer {
+  background: linear-gradient(180deg, #0E2656 0%, #0A1D42 100%);
+  color: #E2EDF9;
+  padding: clamp(3.5rem, 5.5vw, 4.5rem) 0 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 0.9fr 1fr 1.05fr;
+  gap: clamp(2rem, 3.5vw, 3.2rem);
+  align-items: start;
+}
+
+.footer-brand-name {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.25rem;
+}
+
+.footer-brand-role {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #4DE2B9;
+  margin-bottom: 0.85rem;
+}
+
+.footer-brand-desc {
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: #B8CBE3;
+  max-width: 340px;
+  margin-bottom: 1.25rem;
+}
+
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.footer-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: #D7E5F5;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-item svg {
+  color: #0AA779;
+  flex-shrink: 0;
+}
+
+a.footer-contact-item:hover {
+  color: #FFFFFF;
+}
+
+.footer-col-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.2px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footer-link {
+  font-size: 0.93rem;
+  color: #B8CBE3;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.footer-social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0AA779;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(10, 167, 121, 0.35);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer-social-btn:hover {
+  background: #0DC58E;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(10, 167, 121, 0.5);
+}
+
+.footer-email-note {
+  font-size: 0.88rem;
+  color: #B8CBE3;
+  margin-bottom: 1rem;
+}
+
+.footer-email-note a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.footer-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+  font-size: 0.86rem;
+  font-weight: 600;
+  padding: 0.55rem 1.15rem;
+  border-radius: 50px;
+  transition: background-color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.footer-cta-pill:hover {
+  background: #1749C9;
+  border-color: #1749C9;
+  transform: translateY(-2px);
+}
+
+.footer-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: clamp(2rem, 3.5vw, 2.8rem) 0 1.4rem;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #9EB5D2;
+}
+
+.footer-tagline {
+  color: #7FA1C7;
+  font-weight: 500;
+}
+
+@media (max-width: 960px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.2rem 2rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .site-footer {
+    padding: 3rem 0 1.75rem;
+  }
+
+  .footer-container {
+    padding: 0 1.35rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.9rem;
+    text-align: center;
+  }
+
+  .footer-brand-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-contact-list {
+    align-items: center;
+  }
+
+  .footer-links {
+    align-items: center;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.35rem;
+  }
+}
+
+
+/* ==========================================================================
    Responsive Breakpoints
    ========================================================================== */
 
@@ -1845,31 +2220,49 @@ ul {
     height: 290px;
   }
 
+  .hero-google-badge {
+    top: auto;
+    bottom: 6px;
+    left: -26px;
+  }
+
   /* About Section Tablet Styles */
   .about-container {
-    grid-template-columns: 1fr;
-    gap: 3.2rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.8rem;
     text-align: center;
+    justify-items: center;
   }
 
   .about-visual-col {
     order: 1;
+    min-width: 0;
+    width: 100%;
   }
 
   .about-content-col {
     order: 2;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
     align-items: center;
+    text-align: center;
   }
 
   .about-header-group {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     margin-bottom: 1.8rem;
   }
 
   .about-description {
+    width: 100%;
+    max-width: 520px;
     margin: 0 auto 1.3rem;
+    text-align: center;
   }
 
   .about-learn-link {
@@ -1878,6 +2271,7 @@ ul {
 
   .about-cards-grid {
     margin: 0 auto;
+    max-width: 500px;
   }
 }
 
@@ -1895,12 +2289,12 @@ ul {
     height: 42px;
   }
 
-  .btn-appointment {
+  .header-actions .btn-appointment {
     padding: 0.6rem 1.1rem;
     font-size: 0.88rem;
   }
 
-  .btn-appointment span {
+  .header-actions .btn-appointment span {
     display: none;
   }
 
@@ -1965,8 +2359,8 @@ ul {
   .hero-badge-check {
     width: 50px;
     height: 50px;
-    bottom: 10px;
-    right: 10px;
+    bottom: 6px;
+    right: 4px;
   }
 
   .hero-badge-check svg {
@@ -1974,7 +2368,40 @@ ul {
     height: 20px;
   }
 
-  /* About Section Mobile Styles */
+  .hero-google-badge {
+    top: auto;
+    bottom: 4px;
+    left: -22px;
+    padding: 0.42rem 0.68rem;
+    gap: 0.45rem;
+    border-radius: 14px;
+  }
+
+  .google-badge-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+
+  .google-badge-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .google-badge-score {
+    font-size: 0.94rem;
+  }
+
+  .google-badge-stars svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  .google-badge-label {
+    font-size: 0.65rem;
+  }
+
+  /* About Section Mobile Styles (Strictly Centered & Overflow-Free) */
   .about-section {
     padding: 2.8rem 0 3.5rem;
   }
@@ -1982,64 +2409,1728 @@ ul {
   .about-container {
     padding: 0 1.25rem;
     gap: 2rem;
+    width: 100%;
   }
 
   .about-visual-wrapper {
     width: 100%;
-    max-width: 330px;
+    max-width: 290px;
     height: auto;
-    padding-top: 45px;
+    padding-top: 40px;
     margin: 0 auto;
     overflow: visible;
   }
 
   .about-gradient-backdrop {
-    width: 290px;
-    height: 290px;
+    width: 250px;
+    height: 250px;
     bottom: 0px;
   }
 
   .about-doctor-img {
-    max-width: 225px;
+    max-width: 195px;
     margin-bottom: 0;
   }
 
+  .about-title {
+    font-size: 1.9rem;
+  }
+
+  .about-description {
+    font-size: 0.94rem;
+  }
+
   .about-cards-grid {
-    gap: 0.65rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .about-card {
-    padding: 0.5rem 0.5rem 0.75rem;
-    border-radius: 14px;
+    padding: 0.55rem 0.55rem 0.85rem;
+    border-radius: 15px;
+    min-width: 0;
   }
 
   .about-card-img-box {
-    height: 76px;
-    border-radius: 10px;
+    height: 90px;
+    border-radius: 11px;
   }
 
   .about-card-title {
-    font-size: 0.82rem;
+    font-size: 0.86rem;
   }
 
   .about-card-sub {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
   }
 }
 
 /* Small Smart Phones (max-width: 440px) */
 @media (max-width: 440px) {
+  .about-container {
+    padding: 0 1rem;
+  }
+
   .about-cards-grid {
-    grid-template-columns: repeat(3, minmax(130px, 1fr));
-    overflow-x: auto;
-    padding-bottom: 0.6rem;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
     width: 100%;
   }
 
-  .about-card {
-    scroll-snap-align: start;
-    flex-shrink: 0;
+  .about-card-img-box {
+    height: 78px;
+  }
+
+  .about-card-title {
+    font-size: 0.82rem;
   }
 }
+
+
+/* ==========================================================================
+   About Page Hero Section
+   Combines Reference Image 1 (clean typography, smile arc, dual CTAs,
+   3 trust pillars, soft waves & paper airplane) with Reference Image 2
+   (3 white-bordered circular photos over Healthcare Green backdrop circles,
+   thin orbital arc, royal-blue heart, sparkle & floating green dots).
+   ========================================================================== */
+
+.about-hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #F5F9FF 0%, #FFFFFF 54%, #F4F9FF 100%);
+  padding: 6.4rem 0 3rem;
+  overflow: hidden;
+}
+
+/* Ambient Background Decor */
+.about-hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.about-hero-blob-tl {
+  position: absolute;
+  top: -120px;
+  left: -140px;
+  width: 420px;
+  height: 360px;
+  border-radius: 44% 56% 62% 38% / 46% 52% 48% 54%;
+  background: radial-gradient(circle at 60% 60%, rgba(212, 230, 255, 0.58) 0%, rgba(234, 241, 255, 0.18) 75%, transparent 100%);
+}
+
+.about-hero-blob-tr {
+  position: absolute;
+  top: -80px;
+  right: -100px;
+  width: 460px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 50%, rgba(218, 234, 255, 0.5) 0%, rgba(234, 241, 255, 0.1) 70%, transparent 100%);
+}
+
+.about-hero-wave-bottom {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: clamp(60px, 7vw, 100px);
+  display: block;
+}
+
+/* Dot Matrix Grids */
+.about-dot-grid {
+  position: absolute;
+  width: 76px;
+  height: 46px;
+  background-image: radial-gradient(circle, rgba(23, 73, 201, 0.22) 2px, transparent 2.2px);
+  background-size: 16px 16px;
+}
+
+.about-dot-grid-tr {
+  top: 6.2rem;
+  right: 2.2rem;
+}
+
+.about-dot-grid-bl {
+  bottom: 2.2rem;
+  left: 2.2rem;
+}
+
+/* Hand-Drawn Paper Airplane + Looped Trail */
+.about-paper-plane-svg {
+  position: absolute;
+  top: 6.4rem;
+  left: 44%;
+  width: clamp(145px, 14vw, 210px);
+  height: auto;
+  opacity: 0.92;
+  animation: planeFloat 5.5s ease-in-out infinite;
+}
+
+@keyframes planeFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.5deg);
+  }
+}
+
+/* Main Grid Container */
+.about-hero-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1260px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1.04fr 1fr;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3.6rem);
+}
+
+/* Left Content Column */
+.about-hero-content {
+  max-width: 590px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  color: var(--healthcare-green);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.about-eyebrow-line {
+  width: 34px;
+  height: 2.5px;
+  background-color: var(--healthcare-green);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* Hero Dual-Tone Title with Smile Arc */
+.about-hero-title {
+  font-size: clamp(2.45rem, 4.15vw, 3.85rem);
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.45rem;
+}
+
+.about-title-blue {
+  display: block;
+  color: var(--primary-blue);
+}
+
+.about-title-green {
+  display: block;
+  color: var(--healthcare-green);
+  margin-top: 0.08rem;
+}
+
+.smiles-arc-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.smiles-arc-svg {
+  position: absolute;
+  left: 4%;
+  bottom: -0.22em;
+  width: 92%;
+  height: 0.34em;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.about-hero-desc {
+  font-size: 1.12rem;
+  line-height: 1.65;
+  color: #465874;
+  max-width: 470px;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+/* Primary & Outline Pill CTA Buttons */
+.about-hero-cta-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.55rem;
+}
+
+.btn-about-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  padding: 0.9rem 1.85rem;
+  border-radius: 9999px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(23, 73, 201, 0.28);
+  transition: var(--transition-smooth);
+}
+
+.btn-about-primary:hover {
+  background-color: var(--deep-blue);
+  transform: translateY(-2.5px);
+  box-shadow: 0 14px 30px rgba(16, 59, 155, 0.36);
+}
+
+.btn-about-primary .btn-arrow-icon,
+.btn-about-outline .btn-arrow-icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-about-primary:hover .btn-arrow-icon,
+.btn-about-outline:hover .btn-arrow-icon {
+  transform: translateX(4px);
+}
+
+.btn-about-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--primary-blue);
+  border: 1.6px solid var(--primary-blue);
+  padding: 0.88rem 1.75rem;
+  border-radius: 9999px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(23, 73, 201, 0.06);
+  transition: var(--transition-smooth);
+}
+
+.btn-about-outline:hover {
+  background-color: var(--light-blue);
+  color: var(--deep-blue);
+  border-color: var(--deep-blue);
+  transform: translateY(-2.5px);
+  box-shadow: 0 10px 22px rgba(23, 73, 201, 0.14);
+}
+
+/* Bottom 3 Trust Pillars */
+.about-hero-pillars {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.15rem;
+}
+
+.about-pillar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.about-pillar-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.28s ease;
+}
+
+.about-pillar-item:hover .about-pillar-icon {
+  transform: scale(1.08);
+}
+
+.pillar-icon-blue {
+  background-color: #E8F1FF;
+  color: var(--primary-blue);
+  border: 1px solid rgba(23, 73, 201, 0.14);
+}
+
+.pillar-icon-teal {
+  background-color: #E4F6F6;
+  color: #0D7FA5;
+  border: 1px solid rgba(13, 127, 165, 0.16);
+}
+
+.pillar-icon-green {
+  background-color: #E6F8F1;
+  color: var(--healthcare-green);
+  border: 1px solid rgba(10, 167, 121, 0.18);
+}
+
+.about-pillar-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.32;
+  color: var(--primary-text);
+}
+
+.about-pillar-divider {
+  width: 1px;
+  height: 36px;
+  background-color: rgba(23, 73, 201, 0.14);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Right Column: 3-Circle Photo Collage with Image 2 Background Design
+   ========================================================================== */
+
+.about-hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.about-collage-stage {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  aspect-ratio: 1 / 1;
+}
+
+/* Soft Light-Blue Cloud Shape Behind Upper-Right */
+.collage-bg-sky {
+  position: absolute;
+  top: -2%;
+  right: -6%;
+  width: 72%;
+  height: 64%;
+  background-color: #EAF1FE;
+  border-radius: 48% 52% 46% 54% / 50% 42% 58% 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Bold Healthcare Green Backdrop Circles (Ref Image 2) */
+.collage-green-circle-main {
+  position: absolute;
+  left: 11%;
+  top: 15%;
+  width: 49%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-color: var(--healthcare-green);
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.75);
+  animation: collageBackdropPop 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+.collage-green-circle-accent {
+  position: absolute;
+  left: 36%;
+  top: 39%;
+  width: 46%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-color: var(--healthcare-green);
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.75);
+  animation: collageBackdropPop 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+@keyframes collageBackdropPop {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Thin Orbital Arc, Heart, Sparkle & Green Dots SVG */
+.collage-decor-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeDecorIn 0.8s ease 0.35s forwards;
+}
+
+@keyframes fadeDecorIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 3 White-Bordered Circular Photo Frames */
+.collage-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: clamp(6px, 0.9vw, 9px) solid var(--white);
+  background-color: var(--white);
+  overflow: hidden;
+  box-shadow: 0 18px 42px rgba(16, 59, 155, 0.16);
+  opacity: 0;
+  transform: scale(0.78) translateY(16px);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.38s ease;
+}
+
+.collage-circle-primary {
+  top: 3%;
+  right: 2%;
+  width: 53%;
+  aspect-ratio: 1 / 1;
+  z-index: 4;
+  animation: collagePhotoPop 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.24s forwards;
+}
+
+.collage-circle-kid {
+  bottom: 6%;
+  left: 11%;
+  width: 42%;
+  aspect-ratio: 1 / 1;
+  z-index: 5;
+  animation: collagePhotoPop 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.38s forwards;
+}
+
+.collage-circle-secondary {
+  bottom: 2%;
+  right: 11%;
+  width: 34%;
+  aspect-ratio: 1 / 1;
+  z-index: 4;
+  animation: collagePhotoPop 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+@keyframes collagePhotoPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.78) translateY(16px);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.collage-circle-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collage-circle:hover {
+  box-shadow: 0 24px 52px rgba(16, 59, 155, 0.22);
+  z-index: 6;
+}
+
+.collage-circle:hover .collage-circle-img {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   About Page Hero Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1080px) {
+  .about-hero-container {
+    gap: 2rem;
+  }
+
+  .about-paper-plane-svg {
+    left: 42%;
+    width: 145px;
+  }
+
+  .about-hero-pillars {
+    gap: 0.9rem;
+  }
+
+  .about-pillar-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .about-pillar-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 868px) {
+  .about-hero-section {
+    padding: 6.4rem 0 3.8rem;
+    min-height: auto;
+  }
+
+  .about-hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.8rem;
+  }
+
+  .about-hero-content {
+    display: contents;
+  }
+
+  .about-hero-eyebrow {
+    order: 1;
+    margin-bottom: 0.2rem;
+    justify-content: center;
+  }
+
+  .about-hero-title {
+    order: 2;
+    margin-bottom: 0.3rem;
+  }
+
+  .about-hero-visual {
+    order: 3;
+    max-width: 430px;
+    margin: 0.4rem auto;
+  }
+
+  .about-hero-desc {
+    order: 4;
+    margin: 0 auto 0.6rem;
+    max-width: 480px;
+  }
+
+  .about-hero-cta-group {
+    order: 5;
+    justify-content: center;
+    margin-bottom: 0.6rem;
+  }
+
+  .about-hero-pillars {
+    order: 6;
+    justify-content: center;
+    gap: 1rem 1.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .about-pillar-item {
+    text-align: left;
+  }
+
+  .about-paper-plane-svg {
+    top: 5.5rem;
+    left: auto;
+    right: 6%;
+    width: 115px;
+    opacity: 0.65;
+  }
+
+  .about-dot-grid-tr {
+    display: none;
+  }
+}
+
+@media (max-width: 580px) {
+  .about-hero-section {
+    padding: 5.5rem 0 3rem;
+  }
+
+  .about-hero-container {
+    padding: 0 1.25rem;
+    gap: 1.35rem;
+  }
+
+  .about-hero-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 1.3px;
+  }
+
+  .about-eyebrow-line {
+    width: 24px;
+  }
+
+  .about-hero-title {
+    font-size: 2.2rem;
+  }
+
+  .about-hero-visual {
+    max-width: 340px;
+  }
+
+  .about-hero-desc {
+    font-size: 0.98rem;
+  }
+
+  .about-hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .about-hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .about-hero-pillars {
+    gap: 0.85rem 1rem;
+    justify-content: center;
+  }
+
+  .about-pillar-divider {
+    display: none;
+  }
+
+  .about-pillar-item {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(23, 73, 201, 0.08);
+    padding: 0.45rem 0.75rem 0.45rem 0.45rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 12px rgba(16, 59, 155, 0.05);
+  }
+
+  .about-pillar-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .about-pillar-icon svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .about-pillar-label {
+    font-size: 0.78rem;
+  }
+
+  .about-paper-plane-svg {
+    display: none;
+  }
+
+  .about-dot-grid-bl {
+    display: none;
+  }
+}
+
+
+/* ==========================================================================
+   Our Care Philosophy Section (Compact 100vh Fit, Illustration Left + Cards Right)
+   ========================================================================== */
+
+.philosophy-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #F0F6FD 0%, #EBF3FC 100%);
+  padding: clamp(3.4rem, 5.5vh, 4.4rem) 0 clamp(2.8rem, 4.5vh, 3.6rem);
+  overflow: hidden;
+}
+
+/* Main Container (anchors decorative icons closely around the content) */
+.philosophy-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1160px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.4rem 2rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Decorative Layer Positioned Directly Around Content */
+.philosophy-bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.philosophy-stars-svg {
+  position: absolute;
+  top: -0.6rem;
+  left: 1.5rem;
+  width: clamp(86px, 8.5vw, 118px);
+  height: auto;
+}
+
+.philosophy-steth-svg {
+  position: absolute;
+  top: -0.9rem;
+  right: 1.5rem;
+  width: clamp(88px, 8.8vw, 120px);
+  height: auto;
+  opacity: 0.94;
+}
+
+.philosophy-arrow-svg {
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0.8rem;
+  width: clamp(54px, 5vw, 72px);
+  height: auto;
+  opacity: 0.85;
+}
+
+/* Centered Section Header */
+.philosophy-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto clamp(1.4rem, 3vh, 2.2rem);
+}
+
+.philosophy-title {
+  font-size: clamp(2rem, 3vw, 2.65rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.55rem;
+}
+
+.philosophy-subtitle {
+  font-size: clamp(0.94rem, 1.1vw, 1.02rem);
+  line-height: 1.58;
+  color: #526583;
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+/* Two-Column Grid: Illustration LEFT, Cards RIGHT */
+.philosophy-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 0.94fr 1.06fr;
+  align-items: center;
+  gap: clamp(1.6rem, 3.6vw, 3rem);
+}
+
+/* Left Column: Generated Illustration */
+.philosophy-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.philosophy-section.is-visible .philosophy-visual {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.philosophy-illustration-img {
+  width: 100%;
+  max-width: clamp(300px, 34vw, 430px);
+  max-height: clamp(290px, 50vh, 420px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(16, 59, 155, 0.08));
+}
+
+/* Right Column: 2 Philosophy Cards */
+.philosophy-cards {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.95rem, 2vh, 1.35rem);
+}
+
+.philosophy-card {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.1rem, 2vw, 1.65rem);
+  padding: clamp(1.2rem, 2.4vh, 1.65rem) clamp(1.35rem, 2.4vw, 1.9rem);
+  border-radius: 20px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              opacity 0.7s ease;
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.philosophy-section.is-visible .philosophy-card:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.philosophy-section.is-visible .philosophy-card:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.22s;
+}
+
+.philosophy-section.is-visible .philosophy-card:hover {
+  transform: translateY(-4px);
+  transition-delay: 0s;
+}
+
+.philosophy-card-green {
+  background-color: #E2F6EB;
+  border: 1.5px solid #BFEAD3;
+  box-shadow: 0 12px 28px rgba(10, 167, 121, 0.08);
+}
+
+.philosophy-card-green:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(10, 167, 121, 0.14);
+}
+
+.philosophy-card-warm {
+  background-color: #FFF7E9;
+  border: 1.5px solid #F3DFC1;
+  box-shadow: 0 12px 28px rgba(212, 154, 68, 0.08);
+}
+
+.philosophy-card-warm:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(212, 154, 68, 0.15);
+}
+
+.philosophy-card-icon {
+  width: clamp(68px, 6.8vw, 86px);
+  height: clamp(68px, 6.8vw, 86px);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.philosophy-card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.philosophy-card-body {
+  min-width: 0;
+}
+
+.philosophy-card-title {
+  font-size: clamp(1.14rem, 1.45vw, 1.35rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.25;
+  margin-bottom: 0.42rem;
+  letter-spacing: -0.015em;
+}
+
+.philosophy-card-text {
+  font-size: clamp(0.88rem, 1vw, 0.96rem);
+  line-height: 1.58;
+  color: #465874;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   Care Philosophy Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .philosophy-section {
+    min-height: auto;
+    padding: 4.5rem 0 3.8rem;
+  }
+
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+  }
+
+  .philosophy-illustration-img {
+    max-width: 360px;
+    max-height: none;
+  }
+
+  .philosophy-cards {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .philosophy-stars-svg,
+  .philosophy-steth-svg {
+    width: 78px;
+    top: -0.4rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .philosophy-section {
+    padding: 3.6rem 0 3.2rem;
+  }
+
+  .philosophy-container {
+    padding: 0 1.25rem;
+  }
+
+  .philosophy-title {
+    font-size: 1.85rem;
+  }
+
+  .philosophy-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .philosophy-illustration-img {
+    max-width: 280px;
+  }
+
+  .philosophy-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem 1.15rem;
+    gap: 0.85rem;
+  }
+
+  .philosophy-card-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .philosophy-stars-svg,
+  .philosophy-steth-svg,
+  .philosophy-arrow-svg {
+    display: none;
+  }
+}
+
+
+/* ==========================================================================
+   Dr. Patel's Journey Compact Alternating Banner Card (Solid #0AA779)
+   ========================================================================== */
+
+.journey-section {
+  position: relative;
+  background: linear-gradient(180deg, #F6FAFF 0%, #F0F6FD 100%);
+  padding: clamp(1.4rem, 2.8vw, 2.3rem) 1.5rem;
+  overflow: hidden;
+}
+
+.journey-wrapper {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Solid #0AA779 Compact Banner Card with Spring Popup Animation */
+.journey-banner-card {
+  position: relative;
+  background-color: #0AA779;
+  border-radius: 26px;
+  padding: clamp(1.5rem, 2.6vw, 2.1rem) clamp(1.3rem, 2.6vw, 2.4rem);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 20px 46px rgba(10, 167, 121, 0.24),
+              0 6px 18px rgba(16, 59, 155, 0.08);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(48px) scale(0.93);
+  will-change: opacity, transform;
+}
+
+.journey-section.is-visible .journey-banner-card {
+  animation: journeyBannerPop 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes journeyBannerPop {
+  0% {
+    opacity: 0;
+    transform: translateY(48px) scale(0.93);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.012);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Compact Header */
+.journey-header {
+  text-align: center;
+  margin-bottom: clamp(1.15rem, 2vw, 1.65rem);
+}
+
+.journey-tag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  color: #FFFFFF;
+  padding: 0.24rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.journey-title {
+  font-size: clamp(1.65rem, 2.5vw, 2.15rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+/* Horizontal 3-Column Alternating Timeline */
+.journey-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+  align-items: stretch;
+}
+
+/* Horizontal Progressive Track Line (centered vertically across row 2) */
+.journey-track {
+  position: absolute;
+  top: 50%;
+  left: 16.5%;
+  right: 16.5%;
+  height: 3.5px;
+  background: rgba(255, 255, 255, 0.32);
+  border-radius: 4px;
+  transform: translateY(-50%);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.journey-track-fill {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.journey-section.is-visible .journey-track-fill {
+  animation: journeyTrackGrowX 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+}
+
+@keyframes journeyTrackGrowX {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* Each Step uses 3 symmetrical vertical rows: [Top Slot] / [26px Node] / [Bottom Slot] */
+.journey-step {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: 1fr 26px 1fr;
+  align-items: center;
+  justify-items: center;
+  row-gap: 0.65rem;
+}
+
+.journey-slot-icon,
+.journey-slot-card,
+.journey-slot-node {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Odd Steps (1 & 3): Icon Top, Node Middle, Card Bottom */
+.journey-step:not(.journey-step-alt) .journey-slot-icon {
+  grid-row: 1;
+  align-self: end;
+}
+.journey-step:not(.journey-step-alt) .journey-slot-node {
+  grid-row: 2;
+  align-self: center;
+}
+.journey-step:not(.journey-step-alt) .journey-slot-card {
+  grid-row: 3;
+  align-self: start;
+}
+
+/* Even Step (2 - Pediatric Residency): Card Top, Node Middle, Icon Bottom */
+.journey-step-alt .journey-slot-card {
+  grid-row: 1;
+  align-self: end;
+}
+.journey-step-alt .journey-slot-node {
+  grid-row: 2;
+  align-self: center;
+}
+.journey-step-alt .journey-slot-icon {
+  grid-row: 3;
+  align-self: start;
+}
+
+/* Circular White Icon Badge with Pop-in Animation */
+.journey-icon-circle {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 3.5px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 10px 24px rgba(5, 82, 59, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  opacity: 0;
+  transform: scale(0.45);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.journey-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.journey-step:hover .journey-icon-circle {
+  transform: translateY(-3px) scale(1.07);
+  box-shadow: 0 14px 30px rgba(5, 82, 59, 0.32);
+}
+
+/* Timeline Node Dot */
+.journey-node-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 4px solid #1749C9;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transform: scale(0);
+}
+
+.journey-dot-blue { border-color: #1749C9; }
+.journey-dot-coral { border-color: #E05A47; }
+.journey-dot-gold { border-color: #D97706; }
+
+/* Distinct Solid Colored Text Cards */
+.journey-step-card {
+  width: 100%;
+  border-radius: 16px;
+  padding: 0.9rem 1.05rem;
+  text-align: center;
+  box-shadow: 0 12px 26px rgba(5, 76, 54, 0.18);
+  opacity: 0;
+  transform: translateY(18px) scale(0.95);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+.journey-step-alt .journey-step-card {
+  transform: translateY(-18px) scale(0.95);
+}
+
+.journey-step:hover .journey-step-card {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(5, 76, 54, 0.26);
+}
+
+/* Card 1 Solid Color: Soft Sky Blue */
+.journey-card-blue {
+  background-color: #EAF2FF;
+  border: 1.5px solid #C9DDFF;
+}
+
+/* Card 2 Solid Color: Soft Warm Coral-Peach */
+.journey-card-coral {
+  background-color: #FFF0EB;
+  border: 1.5px solid #FAD2C5;
+}
+
+/* Card 3 Solid Color: Soft Warm Buttercream */
+.journey-card-gold {
+  background-color: #FFF8E3;
+  border: 1.5px solid #F6E2A8;
+}
+
+/* Year Pill Inside Each Card */
+.journey-year-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  padding: 0.16rem 0.72rem;
+  border-radius: 9999px;
+  margin-bottom: 0.38rem;
+}
+
+.journey-year-blue { background-color: #1749C9; }
+.journey-year-coral { background-color: #E05A47; }
+.journey-year-gold { background-color: #D97706; }
+
+.journey-step-title {
+  font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.25;
+  margin-bottom: 0.26rem;
+}
+
+.journey-step-desc {
+  font-size: 0.84rem;
+  line-height: 1.46;
+  color: #465874;
+  font-weight: 500;
+}
+
+/* Staggered Progressive Pop-in Keyframes Synchronized with Progressive Line */
+.journey-section.is-visible .journey-step-1 .journey-node-dot {
+  animation: journeyNodePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.32s forwards;
+}
+.journey-section.is-visible .journey-step-1 .journey-icon-circle {
+  animation: journeyIconPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.38s forwards;
+}
+.journey-section.is-visible .journey-step-1 .journey-step-card {
+  animation: journeyCardUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.44s forwards;
+}
+
+.journey-section.is-visible .journey-step-2 .journey-node-dot {
+  animation: journeyNodePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.68s forwards;
+}
+.journey-section.is-visible .journey-step-2 .journey-icon-circle {
+  animation: journeyIconPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.74s forwards;
+}
+.journey-section.is-visible .journey-step-2 .journey-step-card {
+  animation: journeyCardDown 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+}
+
+.journey-section.is-visible .journey-step-3 .journey-node-dot {
+  animation: journeyNodePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 1.02s forwards;
+}
+.journey-section.is-visible .journey-step-3 .journey-icon-circle {
+  animation: journeyIconPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 1.08s forwards;
+}
+.journey-section.is-visible .journey-step-3 .journey-step-card {
+  animation: journeyCardUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 1.14s forwards;
+}
+
+@keyframes journeyNodePop {
+  0% { opacity: 0; transform: scale(0); }
+  70% { opacity: 1; transform: scale(1.25); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes journeyIconPop {
+  0% { opacity: 0; transform: scale(0.45); }
+  70% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes journeyCardUp {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes journeyCardDown {
+  0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ==========================================================================
+   Dr. Patel's Journey Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .journey-banner-card {
+    border-radius: 22px;
+    padding: 1.45rem 1.25rem;
+  }
+
+  .journey-icon-circle {
+    width: 66px;
+    height: 66px;
+    padding: 10px;
+  }
+
+  .journey-step-card {
+    padding: 0.8rem 0.85rem;
+  }
+}
+
+/* Mobile Vertical Alternating Timeline with Center Progressive Line */
+@media (max-width: 768px) {
+  .journey-section {
+    padding: 1.25rem 0.85rem;
+  }
+
+  .journey-banner-card {
+    border-radius: 20px;
+    padding: 1.5rem 0.9rem 1.65rem;
+  }
+
+  .journey-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .journey-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    position: relative;
+  }
+
+  /* Vertical Center Progressive Line */
+  .journey-track {
+    top: 13%;
+    bottom: 13%;
+    left: 50%;
+    right: auto;
+    width: 3px;
+    height: auto;
+    transform: translateX(-50%);
+  }
+
+  .journey-track-fill {
+    width: 100%;
+    height: 100%;
+    transform: scaleY(0);
+    transform-origin: top center;
+  }
+
+  .journey-section.is-visible .journey-track-fill {
+    animation: journeyTrackGrowY 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+  }
+
+  @keyframes journeyTrackGrowY {
+    0% { transform: scaleY(0); }
+    100% { transform: scaleY(1); }
+  }
+
+  /* 3-Column Row per Step: [Left Side] [Center Node] [Right Side] */
+  .journey-step {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+    column-gap: 0.55rem;
+    row-gap: 0;
+  }
+
+  /* Odd Steps (1 & 3): Icon Left, Node Center, Card Right */
+  .journey-step:not(.journey-step-alt) .journey-slot-icon {
+    grid-row: 1;
+    grid-column: 1;
+    justify-content: flex-end;
+    align-self: center;
+  }
+  .journey-step:not(.journey-step-alt) .journey-slot-node {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: center;
+  }
+  .journey-step:not(.journey-step-alt) .journey-slot-card {
+    grid-row: 1;
+    grid-column: 3;
+    justify-content: flex-start;
+    align-self: center;
+  }
+
+  /* Even Step (2 - Pediatric Residency): Card Left, Node Center, Icon Right */
+  .journey-step-alt .journey-slot-card {
+    grid-row: 1;
+    grid-column: 1;
+    justify-content: flex-end;
+    align-self: center;
+  }
+  .journey-step-alt .journey-slot-node {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: center;
+  }
+  .journey-step-alt .journey-slot-icon {
+    grid-row: 1;
+    grid-column: 3;
+    justify-content: flex-start;
+    align-self: center;
+  }
+
+  .journey-icon-circle {
+    width: 64px;
+    height: 64px;
+    padding: 10px;
+  }
+
+  .journey-node-dot {
+    width: 16px;
+    height: 16px;
+    border-width: 3.5px;
+  }
+
+  .journey-step-card {
+    padding: 0.72rem 0.72rem;
+    border-radius: 14px;
+    text-align: left;
+    transform: translateX(16px) scale(0.95);
+  }
+
+  .journey-step-alt .journey-step-card {
+    text-align: right;
+    transform: translateX(-16px) scale(0.95);
+  }
+
+  .journey-year-badge {
+    font-size: 0.72rem;
+    padding: 0.14rem 0.58rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .journey-step-title {
+    font-size: 0.9rem;
+    line-height: 1.22;
+    margin-bottom: 0.22rem;
+  }
+
+  .journey-step-desc {
+    font-size: 0.76rem;
+    line-height: 1.38;
+  }
+}
+
+
+/* ==========================================================================
+   Giving Back to the Community Section (Soft Mint Backdrop + 3 Pastel Cards)
+   ========================================================================== */
+
+.community-section {
+  position: relative;
+  background: linear-gradient(180deg, #DCF6E9 0%, #D3F1E2 100%);
+  padding: clamp(3.4rem, 5.5vw, 4.6rem) 0 clamp(3.8rem, 6vw, 5rem);
+  overflow: hidden;
+}
+
+.community-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Centered Section Header */
+.community-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto clamp(2.1rem, 3.8vw, 2.8rem);
+}
+
+.community-title {
+  font-size: clamp(1.95rem, 3.1vw, 2.65rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.6rem;
+}
+
+.community-subtitle {
+  font-size: clamp(0.95rem, 1.15vw, 1.04rem);
+  line-height: 1.6;
+  color: #465874;
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+/* 3-Column Card Grid */
+.community-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.4vw, 2rem);
+  align-items: stretch;
+}
+
+.community-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 22px;
+  padding: 1.6rem 1.5rem 1.85rem;
+  box-shadow: 0 12px 30px rgba(16, 59, 155, 0.06);
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.32s ease,
+              opacity 0.65s ease var(--card-delay, 0s);
+}
+
+.community-section.is-visible .community-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.community-section.is-visible .community-card:hover {
+  transform: translateY(-6px);
+  transition-delay: 0s;
+}
+
+/* Distinct Card Colors Matching Reference Image */
+.community-card-blue {
+  background-color: #EDF3FF;
+  border: 1.5px solid #BFCEF0;
+}
+
+.community-card-blue:hover {
+  box-shadow: 0 20px 40px rgba(23, 73, 201, 0.13);
+}
+
+.community-card-warm {
+  background-color: #FFF5EA;
+  border: 1.5px solid #ECCFAF;
+}
+
+.community-card-warm:hover {
+  box-shadow: 0 20px 40px rgba(209, 144, 72, 0.14);
+}
+
+.community-card-mint {
+  background-color: #EFFCF5;
+  border: 1.5px solid #93D4B5;
+}
+
+.community-card-mint:hover {
+  box-shadow: 0 20px 40px rgba(10, 167, 121, 0.14);
+}
+
+/* Illustration Container */
+.community-card-media {
+  width: 100%;
+  height: 185px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.community-card-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.community-card-img-family {
+  max-height: 176px;
+}
+
+.community-card:hover .community-card-img {
+  transform: scale(1.04);
+}
+
+.community-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.community-card-title {
+  font-size: clamp(1.16rem, 1.45vw, 1.32rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.65rem;
+}
+
+.community-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #465874;
+  font-weight: 400;
+  max-width: 300px;
+}
+
+/* ==========================================================================
+   Giving Back to the Community Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .community-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .community-card:last-child {
+    grid-column: 1 / -1;
+    max-width: 420px;
+    justify-self: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .community-section {
+    padding: 2.8rem 0 3.2rem;
+  }
+
+  .community-container {
+    padding: 0 1.25rem;
+  }
+
+  .community-title {
+    font-size: 1.82rem;
+  }
+
+  .community-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .community-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .community-card:last-child {
+    max-width: none;
+  }
+
+  .community-card {
+    padding: 1.4rem 1.2rem 1.6rem;
+    border-radius: 20px;
+  }
+
+  .community-card-media {
+    height: 165px;
+    margin-bottom: 1rem;
+  }
+}
+
+
+
+
