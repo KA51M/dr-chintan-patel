@@ -308,4 +308,195 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (spaceSec) {
     spaceSec.classList.add('is-visible');
   }
+
+  // 12. About Page Priority Appointment Banner Scroll Entrance Animation
+  const prioritySec = document.getElementById('priority-cta');
+  if (prioritySec && 'IntersectionObserver' in window) {
+    const priorityObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          prioritySec.classList.add('is-visible');
+          priorityObserver.disconnect();
+        }
+      });
+    }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+    priorityObserver.observe(prioritySec);
+  } else if (prioritySec) {
+    prioritySec.classList.add('is-visible');
+  }
+
+  // 13. Contact Page FAQ Accordion
+  const faqItems = document.querySelectorAll('#faqAccordion .faq-item');
+  if (faqItems.length > 0) {
+    faqItems.forEach(item => {
+      const trigger = item.querySelector('.faq-trigger');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const isCurrentlyOpen = item.classList.contains('is-open');
+
+        faqItems.forEach(other => {
+          other.classList.remove('is-open');
+          const otherBtn = other.querySelector('.faq-trigger');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isCurrentlyOpen) {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
+  // 14. Shared Appointment Form Handler (Contact Page + Navbar Modal)
+  function bindAppointmentForm(form, feedbackEl) {
+    if (!form || !feedbackEl) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const firstName = form.firstName.value.trim();
+      const lastName = form.lastName.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      feedbackEl.classList.remove('is-error');
+
+      if (!firstName || !lastName || !email || !message) {
+        feedbackEl.textContent = 'Please fill in your name, email, and message to continue.';
+        feedbackEl.classList.add('is-error');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        feedbackEl.textContent = 'Please enter a valid email address.';
+        feedbackEl.classList.add('is-error');
+        return;
+      }
+
+      const whatsappText = [
+        'Hello Dr. Chintan Patel,',
+        `Name: ${firstName} ${lastName}`,
+        `Email: ${email}`,
+        `Message: ${message}`
+      ].join('\n');
+
+      const whatsappUrl = `https://wa.me/919327252303?text=${encodeURIComponent(whatsappText)}`;
+      feedbackEl.textContent = 'Redirecting to WhatsApp to confirm your appointment request...';
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      form.reset();
+    });
+  }
+
+  bindAppointmentForm(
+    document.getElementById('appointmentForm'),
+    document.getElementById('formFeedback')
+  );
+
+  // 15. Navbar "Book Appointment" Booking Modal (Available Across All Pages)
+  const navBookingTriggers = document.querySelectorAll('.site-header .btn-appointment');
+  if (navBookingTriggers.length > 0) {
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'booking-modal-overlay';
+    modalOverlay.id = 'bookingModal';
+    modalOverlay.setAttribute('aria-hidden', 'true');
+    modalOverlay.setAttribute('role', 'dialog');
+    modalOverlay.setAttribute('aria-modal', 'true');
+    modalOverlay.setAttribute('aria-labelledby', 'bookingModalTitle');
+
+    modalOverlay.innerHTML = `
+      <div class="booking-modal-card contact-form-card">
+        <div class="form-card-decor" aria-hidden="true">
+          <span class="form-decor-circle-tr"></span>
+          <span class="form-decor-circle-bl"></span>
+        </div>
+        <button type="button" class="booking-modal-close" aria-label="Close booking form">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <h2 class="contact-form-title" id="bookingModalTitle">Book Your Child’s Appointment</h2>
+        <form class="appointment-form" id="modalAppointmentForm" novalidate>
+          <div class="form-row-two">
+            <div class="form-field">
+              <label for="modalFirstName" class="sr-only">Name</label>
+              <input type="text" id="modalFirstName" name="firstName" class="form-input" placeholder="Name" required>
+            </div>
+            <div class="form-field">
+              <label for="modalLastName" class="sr-only">Last name</label>
+              <input type="text" id="modalLastName" name="lastName" class="form-input" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="modalEmail" class="sr-only">Email</label>
+            <input type="email" id="modalEmail" name="email" class="form-input" placeholder="Email" required>
+          </div>
+          <div class="form-field">
+            <label for="modalMessage" class="sr-only">Message</label>
+            <textarea id="modalMessage" name="message" class="form-input form-textarea" rows="4" placeholder="Message" required></textarea>
+          </div>
+          <button type="submit" class="btn-form-submit">
+            <span>Book Appointment</span>
+          </button>
+          <p class="form-feedback" id="modalFormFeedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    `;
+
+    document.body.appendChild(modalOverlay);
+
+    const modalCloseBtn = modalOverlay.querySelector('.booking-modal-close');
+    const modalFirstInput = document.getElementById('modalFirstName');
+
+    function openBookingModal() {
+      if (mobileMenu && mobileMenu.classList.contains('open')) {
+        closeMobileNav();
+      }
+      modalOverlay.classList.add('is-open');
+      modalOverlay.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('modal-open');
+      document.body.classList.add('modal-open');
+      if (modalFirstInput) {
+        setTimeout(() => modalFirstInput.focus(), 120);
+      }
+    }
+
+    function closeBookingModal() {
+      modalOverlay.classList.remove('is-open');
+      modalOverlay.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
+    }
+
+    navBookingTriggers.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openBookingModal();
+      });
+    });
+
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', closeBookingModal);
+    }
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        closeBookingModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) {
+        closeBookingModal();
+      }
+    });
+
+    bindAppointmentForm(
+      document.getElementById('modalAppointmentForm'),
+      document.getElementById('modalFormFeedback')
+    );
+  }
 });

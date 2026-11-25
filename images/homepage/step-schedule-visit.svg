@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <!-- Soft ambient halo -->
+  <circle cx="78" cy="82" r="62" fill="#EBF3FF" opacity="0.75"/>
+  <!-- Calendar Drop Shadow -->
+  <rect x="26" y="38" width="96" height="90" rx="14" fill="#1749C9" opacity="0.1"/>
+  <!-- Calendar Main Body -->
+  <rect x="22" y="32" width="96" height="90" rx="13" fill="#FFFFFF" stroke="#172B50" stroke-width="4.2" stroke-linejoin="round"/>
+  <!-- Calendar Header Band (Coral Red) -->
+  <path d="M22 45C22 37.8203 27.8203 32 35 32H105C112.18 32 118 37.8203 118 45V56H22V45Z" fill="#EF6C6C" stroke="#172B50" stroke-width="4.2" stroke-linejoin="round"/>
+  <!-- Subtle header shine -->
+  <path d="M32 39H72" stroke="#FCA5A5" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <!-- Binding Rings -->
+  <rect x="40" y="21" width="10" height="20" rx="5" fill="#F8FAFC" stroke="#172B50" stroke-width="4"/>
+  <rect x="90" y="21" width="10" height="20" rx="5" fill="#F8FAFC" stroke="#172B50" stroke-width="4"/>
+  <!-- Date Grid Squares -->
+  <g stroke="#172B50" stroke-width="2.8" stroke-linejoin="round">
+    <!-- Row 1 -->
+    <rect x="35" y="67" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <rect x="54" y="67" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <rect x="73" y="67" width="12" height="10" rx="2.5" fill="#DBEAFE"/>
+    <rect x="92" y="67" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <!-- Row 2 -->
+    <rect x="35" y="84" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <rect x="54" y="84" width="12" height="10" rx="2.5" fill="#D1FAE5"/>
+    <rect x="73" y="84" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <rect x="92" y="84" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <!-- Row 3 -->
+    <rect x="35" y="101" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <rect x="54" y="101" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+    <rect x="73" y="101" width="12" height="10" rx="2.5" fill="#F1F5F9"/>
+  </g>
+  <!-- Sky Blue Clock Badge at Bottom Right -->
+  <circle cx="112" cy="112" r="27" fill="#60A5FA" stroke="#172B50" stroke-width="4.2"/>
+  <circle cx="112" cy="112" r="19.5" fill="#EFF6FF" stroke="#172B50" stroke-width="2.6" opacity="0.9"/>
+  <!-- Clock Hands -->
+  <path d="M112 99V112L121 117" stroke="#172B50" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="112" cy="112" r="2.8" fill="#172B50"/>
+</svg>

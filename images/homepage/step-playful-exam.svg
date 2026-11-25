@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <!-- Soft ambient mint halo -->
+  <circle cx="80" cy="84" r="62" fill="#E6F7F0" opacity="0.8"/>
+
+  <!-- Playful Framed Doodle 1 (Left - Boat/Mountain Picture) -->
+  <g transform="translate(26, 18)">
+    <rect x="0" y="0" width="42" height="36" rx="6" fill="#A7F3D0" stroke="#172B50" stroke-width="3.4" stroke-linejoin="round"/>
+    <rect x="6" y="6" width="30" height="24" rx="3" fill="#FFFFFF" stroke="#172B50" stroke-width="2.4"/>
+    <path d="M12 24L21 12L30 24H12Z" fill="#60A5FA" stroke="#172B50" stroke-width="2.2" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Playful Framed Doodle 2 (Right - Smiling Sun Picture) -->
+  <g transform="translate(86, 14)">
+    <rect x="0" y="0" width="46" height="40" rx="6" fill="#BAE6FD" stroke="#172B50" stroke-width="3.4" stroke-linejoin="round"/>
+    <rect x="6" y="6" width="34" height="28" rx="3" fill="#FFFFFF" stroke="#172B50" stroke-width="2.4"/>
+    <circle cx="23" cy="20" r="8.5" fill="#FDE047" stroke="#172B50" stroke-width="2.2"/>
+    <circle cx="20.2" cy="18.5" r="1.2" fill="#172B50"/>
+    <circle cx="25.8" cy="18.5" r="1.2" fill="#172B50"/>
+    <path d="M20 22C21.5 23.8 24.5 23.8 26 22" stroke="#172B50" stroke-width="1.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- Little Floating Sparkle Dots -->
+  <circle cx="77" cy="40" r="3" fill="#0AA779" opacity="0.55"/>
+  <circle cx="140" cy="64" r="3" fill="#1749C9" opacity="0.45"/>
+
+  <!-- Friendly Pediatric Clinic Building -->
+  <!-- Ground Line -->
+  <path d="M18 134H142" stroke="#172B50" stroke-width="3.8" stroke-linecap="round"/>
+  <!-- Left & Right Bushes -->
+  <path d="M23 134C21 125 28 119 35 123C37 119 44 121 44 127V134H23Z" fill="#34D399" stroke="#172B50" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M116 134V127C116 121 123 119 125 123C132 119 139 125 137 134H116Z" fill="#34D399" stroke="#172B50" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Main Building Body -->
+  <rect x="34" y="84" width="92" height="50" rx="4" fill="#FEF3C7" stroke="#172B50" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Center Raised Section -->
+  <rect x="56" y="70" width="48" height="64" rx="4" fill="#FDE68A" stroke="#172B50" stroke-width="4" stroke-linejoin="round"/>
+  <!-- Coral Roofs -->
+  <path d="M26 84L38 72H122L134 84H26Z" fill="#EF6C6C" stroke="#172B50" stroke-width="3.8" stroke-linejoin="round"/>
+  <path d="M50 70L80 54L110 70H50Z" fill="#EF6C6C" stroke="#172B50" stroke-width="3.8" stroke-linejoin="round"/>
+
+  <!-- Cute Top Round Windows -->
+  <circle cx="68" cy="84" r="4.5" fill="#E0F2FE" stroke="#172B50" stroke-width="2.6"/>
+  <circle cx="80" cy="84" r="4.5" fill="#E0F2FE" stroke="#172B50" stroke-width="2.6"/>
+  <circle cx="92" cy="84" r="4.5" fill="#E0F2FE" stroke="#172B50" stroke-width="2.6"/>
+
+  <!-- Side Windows -->
+  <rect x="41" y="96" width="10" height="14" rx="2" fill="#BAE6FD" stroke="#172B50" stroke-width="2.6"/>
+  <rect x="109" y="96" width="10" height="14" rx="2" fill="#BAE6FD" stroke="#172B50" stroke-width="2.6"/>
+
+  <!-- Mint Double Entrance Doors -->
+  <rect x="66" y="102" width="28" height="32" rx="3" fill="#6EE7B7" stroke="#172B50" stroke-width="3.4"/>
+  <line x1="80" y1="102" x2="80" y2="134" stroke="#172B50" stroke-width="2.8"/>
+</svg>

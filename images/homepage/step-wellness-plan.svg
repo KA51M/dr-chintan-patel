@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <!-- Soft ambient sky halo -->
+  <circle cx="78" cy="82" r="62" fill="#EAF2FF" opacity="0.8"/>
+
+  <!-- Clipboard Shadow -->
+  <rect x="34" y="34" width="84" height="106" rx="12" fill="#0AA779" opacity="0.14"/>
+
+  <!-- Mint Green Clipboard Body -->
+  <rect x="28" y="28" width="84" height="106" rx="11" fill="#6EE7B7" stroke="#172B50" stroke-width="4.2" stroke-linejoin="round"/>
+  <!-- Crisp White Chart Sheet -->
+  <rect x="38" y="40" width="64" height="84" rx="6" fill="#FFFFFF" stroke="#172B50" stroke-width="3.4" stroke-linejoin="round"/>
+
+  <!-- Metal Clipboard Top Clip -->
+  <rect x="52" y="18" width="36" height="18" rx="6" fill="#CBD5E1" stroke="#172B50" stroke-width="3.8"/>
+  <circle cx="70" cy="25" r="3" fill="#172B50"/>
+
+  <!-- Coral Heart on Chart -->
+  <path d="M70 74C70 74 55 64.5 55 56C55 51.8 58.3 48.5 62.5 48.5C65.2 48.5 67.7 50 70 52.8C72.3 50 74.8 48.5 77.5 48.5C81.7 48.5 85 51.8 85 56C85 64.5 70 74 70 74Z" fill="#EF6C6C" stroke="#172B50" stroke-width="3.2" stroke-linejoin="round"/>
+
+  <!-- Checklist Checkmarks & Progress Lines -->
+  <path d="M48 89L52 93L59 85" stroke="#0AA779" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="65" y1="90" x2="91" y2="90" stroke="#172B50" stroke-width="3.2" stroke-linecap="round"/>
+
+  <path d="M48 103L52 107L59 99" stroke="#0AA779" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="65" y1="104" x2="87" y2="104" stroke="#172B50" stroke-width="3.2" stroke-linecap="round"/>
+
+  <!-- Angled Friendly Pencil on Right -->
+  <g transform="translate(115, 58) rotate(36)">
+    <!-- Eraser -->
+    <rect x="0" y="0" width="14" height="12" rx="3" fill="#EF6C6C" stroke="#172B50" stroke-width="3.4"/>
+    <!-- Pencil Barrel (Healthcare Green) -->
+    <rect x="0" y="12" width="14" height="46" fill="#34D399" stroke="#172B50" stroke-width="3.4"/>
+    <!-- Wood Tip -->
+    <path d="M0 58L7 72L14 58H0Z" fill="#FDE68A" stroke="#172B50" stroke-width="3.4" stroke-linejoin="round"/>
+    <!-- Graphite Point -->
+    <path d="M4.5 67L7 72L9.5 67H4.5Z" fill="#172B50"/>
+  </g>
+</svg>
