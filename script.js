@@ -292,4 +292,20 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (communitySec) {
     communitySec.classList.add('is-visible');
   }
+
+  // 11. About Page Warm & Child-Friendly Space Scroll Entrance Animation
+  const spaceSec = document.getElementById('clinic-space');
+  if (spaceSec && 'IntersectionObserver' in window) {
+    const spaceObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          spaceSec.classList.add('is-visible');
+          spaceObserver.disconnect();
+        }
+      });
+    }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+    spaceObserver.observe(spaceSec);
+  } else if (spaceSec) {
+    spaceSec.classList.add('is-visible');
+  }
 });

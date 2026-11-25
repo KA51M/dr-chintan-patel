@@ -3934,7 +3934,74 @@ a.footer-contact-item:hover {
   overflow: hidden;
 }
 
+/* Hero-Style Ambient Background Elements for Community Section */
+.community-bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.community-blob-tl {
+  position: absolute;
+  top: -110px;
+  left: -120px;
+  width: 360px;
+  height: 320px;
+  border-radius: 46% 54% 60% 40% / 48% 52% 48% 52%;
+  background: radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.55) 0%, rgba(190, 238, 216, 0.25) 70%, transparent 100%);
+}
+
+.community-blob-br {
+  position: absolute;
+  bottom: -120px;
+  right: -110px;
+  width: 400px;
+  height: 340px;
+  border-radius: 54% 46% 42% 58% / 50% 44% 56% 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(23, 73, 201, 0.08) 0%, rgba(255, 255, 255, 0.35) 65%, transparent 100%);
+}
+
+.community-dot-grid {
+  position: absolute;
+  width: 76px;
+  height: 46px;
+  background-image: radial-gradient(circle, rgba(10, 167, 121, 0.28) 2px, transparent 2.2px);
+  background-size: 16px 16px;
+}
+
+.community-dot-grid-tl {
+  top: 2.2rem;
+  left: 2.2rem;
+}
+
+.community-dot-grid-br {
+  bottom: 2rem;
+  right: 2.2rem;
+  background-image: radial-gradient(circle, rgba(23, 73, 201, 0.22) 2px, transparent 2.2px);
+}
+
+.community-paper-plane-svg {
+  position: absolute;
+  top: 1.6rem;
+  right: clamp(1.2rem, 4vw, 4.5rem);
+  width: clamp(120px, 12vw, 185px);
+  height: auto;
+  animation: planeFloat 5.5s ease-in-out infinite;
+}
+
+.community-accent-left-svg {
+  position: absolute;
+  top: 4.5rem;
+  left: clamp(0.8rem, 3.5vw, 3.5rem);
+  width: clamp(78px, 7.5vw, 110px);
+  height: auto;
+}
+
 .community-container {
+  position: relative;
+  z-index: 2;
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 2rem;
@@ -4129,7 +4196,191 @@ a.footer-contact-item:hover {
     height: 165px;
     margin-bottom: 1rem;
   }
+
+  .community-paper-plane-svg,
+  .community-accent-left-svg,
+  .community-dot-grid {
+    display: none;
+  }
 }
+
+
+/* ==========================================================================
+   A Warm & Child-Friendly Space Section (100% Viewport Height Fit)
+   ========================================================================== */
+
+.space-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  padding: clamp(4.4rem, 6.2vh, 5.2rem) 0 clamp(2rem, 3.6vh, 2.8rem);
+  overflow: hidden;
+}
+
+.space-container {
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.space-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.25rem, 2.2vw, 1.85rem);
+  height: clamp(440px, 72vh, 630px);
+  align-items: stretch;
+}
+
+/* Left Column: Heading + Paragraph + Large Photo */
+.space-left-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(0.95rem, 2vh, 1.45rem);
+  min-height: 0;
+  height: 100%;
+}
+
+.space-text-block {
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.space-section.is-visible .space-text-block {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.space-title {
+  font-size: clamp(1.9rem, 2.9vw, 2.55rem);
+  font-weight: 800;
+  color: var(--primary-text);
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  margin-bottom: clamp(0.5rem, 1.2vh, 0.8rem);
+}
+
+.space-desc {
+  font-size: clamp(0.92rem, 1.08vw, 1rem);
+  line-height: 1.62;
+  color: #465874;
+  font-weight: 400;
+  max-width: 520px;
+}
+
+/* Right Column: 2 Equal Stacked Photos */
+.space-right-col {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(1rem, 2vh, 1.45rem);
+  min-height: 0;
+  height: 100%;
+}
+
+/* Photo Card Containers */
+.space-photo-card {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #EEF4FC;
+  border: 1px solid rgba(23, 73, 201, 0.08);
+  box-shadow: 0 14px 32px rgba(16, 59, 155, 0.09);
+  opacity: 0;
+  transform: translateY(24px) scale(0.97);
+  transition: opacity 0.7s ease var(--photo-delay, 0.1s),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--photo-delay, 0.1s),
+              box-shadow 0.32s ease;
+}
+
+.space-photo-main {
+  flex: 1 1 auto;
+}
+
+.space-section.is-visible .space-photo-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.space-section.is-visible .space-photo-card:hover {
+  box-shadow: 0 20px 44px rgba(16, 59, 155, 0.15);
+}
+
+.space-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.space-photo-card:hover .space-photo-img {
+  transform: scale(1.04);
+}
+
+/* ==========================================================================
+   Warm & Child-Friendly Space Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .space-section {
+    min-height: auto;
+    padding: 3.6rem 0 3.8rem;
+  }
+
+  .space-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 1.25rem;
+  }
+
+  .space-left-col {
+    height: auto;
+    gap: 1.25rem;
+  }
+
+  .space-right-col {
+    height: auto;
+    grid-template-rows: auto auto;
+    gap: 1.25rem;
+  }
+
+  .space-photo-card {
+    aspect-ratio: 16 / 10;
+    flex: none;
+  }
+}
+
+@media (max-width: 580px) {
+  .space-section {
+    padding: 3rem 0 3.2rem;
+  }
+
+  .space-container {
+    padding: 0 1.25rem;
+  }
+
+  .space-title {
+    font-size: 1.8rem;
+  }
+
+  .space-desc {
+    font-size: 0.92rem;
+  }
+
+  .space-photo-card {
+    border-radius: 16px;
+  }
+}
+
 
 
 
