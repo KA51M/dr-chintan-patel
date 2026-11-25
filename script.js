@@ -411,38 +411,92 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="form-card-decor" aria-hidden="true">
           <span class="form-decor-circle-tr"></span>
           <span class="form-decor-circle-bl"></span>
+          <span class="modal-dot-grid"></span>
+          <svg class="modal-sparkles-svg" viewBox="0 0 120 80" fill="none">
+            <path d="M24 12 Q24 21 33 21 Q24 21 24 30 Q24 21 15 21 Q24 21 24 12 Z" stroke="#4DE2B9" stroke-width="1.6" opacity="0.65"/>
+            <path d="M92 48 C92 48 83 42 83 36 C83 32.8 85.5 30.5 88.4 30.5 C90.2 30.5 91.4 31.4 92 32.6 C92.6 31.4 93.8 30.5 95.6 30.5 C98.5 30.5 101 32.8 101 36 C101 42 92 48 92 48 Z" stroke="#FFFFFF" stroke-width="1.5" opacity="0.38"/>
+          </svg>
         </div>
+
         <button type="button" class="booking-modal-close" aria-label="Close booking form">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
-        <h2 class="contact-form-title" id="bookingModalTitle">Book Your Child’s Appointment</h2>
+
+        <div class="modal-header-block">
+          <div class="modal-clinic-pill">
+            <span class="modal-pill-dot" aria-hidden="true"></span>
+            <span>Dr. Chintan Patel &bull; Valsad</span>
+          </div>
+          <h2 class="contact-form-title" id="bookingModalTitle">Book Your Child’s Appointment</h2>
+          <p class="modal-subtitle">Share your details below for quick confirmation via WhatsApp.</p>
+        </div>
+
         <form class="appointment-form" id="modalAppointmentForm" novalidate>
           <div class="form-row-two">
-            <div class="form-field">
+            <div class="form-field form-field-icon">
               <label for="modalFirstName" class="sr-only">Name</label>
+              <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
               <input type="text" id="modalFirstName" name="firstName" class="form-input" placeholder="Name" required>
             </div>
-            <div class="form-field">
+            <div class="form-field form-field-icon">
               <label for="modalLastName" class="sr-only">Last name</label>
+              <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
               <input type="text" id="modalLastName" name="lastName" class="form-input" placeholder="Last name" required>
             </div>
           </div>
-          <div class="form-field">
+
+          <div class="form-field form-field-icon">
             <label for="modalEmail" class="sr-only">Email</label>
+            <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
             <input type="email" id="modalEmail" name="email" class="form-input" placeholder="Email" required>
           </div>
-          <div class="form-field">
+
+          <div class="form-field form-field-icon form-field-textarea">
             <label for="modalMessage" class="sr-only">Message</label>
-            <textarea id="modalMessage" name="message" class="form-input form-textarea" rows="4" placeholder="Message" required></textarea>
+            <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <textarea id="modalMessage" name="message" class="form-input form-textarea" rows="3" placeholder="Message (child's age, symptoms, preferred time)" required></textarea>
           </div>
-          <button type="submit" class="btn-form-submit">
+
+          <button type="submit" class="btn-form-submit btn-modal-submit">
             <span>Book Appointment</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </button>
+
           <p class="form-feedback" id="modalFormFeedback" role="status" aria-live="polite"></p>
         </form>
+
+        <div class="modal-trust-bar">
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Instant WhatsApp Confirmation
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Mon – Sat: 9:30 AM – 7:30 PM
+          </span>
+        </div>
       </div>
     `;
 
@@ -450,10 +504,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modalCloseBtn = modalOverlay.querySelector('.booking-modal-close');
     const modalFirstInput = document.getElementById('modalFirstName');
+    const modalMessageInput = document.getElementById('modalMessage');
 
-    function openBookingModal() {
+    function openBookingModal(serviceName) {
       if (mobileMenu && mobileMenu.classList.contains('open')) {
         closeMobileNav();
+      }
+      if (modalMessageInput) {
+        if (serviceName) {
+          modalMessageInput.value = `Service requested: ${serviceName}\n`;
+        } else if (modalMessageInput.value.startsWith('Service requested: ')) {
+          modalMessageInput.value = '';
+        }
       }
       modalOverlay.classList.add('is-open');
       modalOverlay.setAttribute('aria-hidden', 'false');
@@ -478,6 +540,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    document.querySelectorAll('.js-open-booking-modal').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openBookingModal();
+      });
+    });
+
+    document.querySelectorAll('.js-book-service').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const serviceName = btn.getAttribute('data-service') || '';
+        openBookingModal(serviceName);
+      });
+    });
+
     if (modalCloseBtn) {
       modalCloseBtn.addEventListener('click', closeBookingModal);
     }
@@ -499,4 +576,61 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('modalFormFeedback')
     );
   }
+
+  // 16. Navbar Services Dropdown Accessibility, Category Filter Visuals, Mobile Toggle & Card Highlight
+  const navDropdownItem = document.querySelector('.nav-item-dropdown');
+  if (navDropdownItem) {
+    const dropdownTrigger = navDropdownItem.querySelector('.nav-link-dropdown');
+    navDropdownItem.addEventListener('mouseenter', () => {
+      if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'true');
+    });
+    navDropdownItem.addEventListener('mouseleave', () => {
+      if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        navDropdownItem.classList.remove('is-open');
+        if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
+        if (document.activeElement && navDropdownItem.contains(document.activeElement)) {
+          document.activeElement.blur();
+        }
+      }
+    });
+
+    // Visual toggle for left-side 4 filter buttons in Services mega-card
+    const filterBtns = navDropdownItem.querySelectorAll('.nav-filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        filterBtns.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+      });
+    });
+  }
+
+  // Mobile Services Drawer Arrow Accordion
+  document.querySelectorAll('.mobile-services-group').forEach(group => {
+    const toggleBtn = group.querySelector('.mobile-services-toggle');
+    if (!toggleBtn) return;
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = group.classList.toggle('is-open');
+      toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  function highlightTargetServiceCard() {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const targetCard = document.querySelector(`.service-page-card${hash}`);
+    if (!targetCard) return;
+    document.querySelectorAll('.service-page-card.is-highlighted').forEach(c => c.classList.remove('is-highlighted'));
+    targetCard.classList.add('is-highlighted');
+    setTimeout(() => targetCard.classList.remove('is-highlighted'), 2400);
+  }
+
+  highlightTargetServiceCard();
+  window.addEventListener('hashchange', highlightTargetServiceCard);
 });

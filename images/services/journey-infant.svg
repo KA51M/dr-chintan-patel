@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <circle cx="80" cy="80" r="68" fill="#E6F0FF"/>
+  <circle cx="80" cy="80" r="60" fill="#DCEAFF" opacity="0.6"/>
+  <circle cx="124" cy="44" r="3" fill="#1749C9" opacity="0.28"/>
+  <circle cx="34" cy="110" r="3" fill="#0AA779" opacity="0.3"/>
+
+  <!-- Cute Awake Smiling Infant -->
+  <g transform="translate(80, 86)">
+    <!-- Cozy blue infant body/wrap -->
+    <path d="M-24 -6 C-28 24, -22 46, 0 46 C22 46, 28 24, 24 -6 Z" fill="#1749C9" stroke="#172B50" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- Wrap fold highlights -->
+    <path d="M-24 8 C-8 20, 8 20, 24 8" stroke="#60A5FA" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M-22 20 C-6 30, 8 28, 22 18" stroke="#172B50" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- Little hands peeking out -->
+    <circle cx="-23" cy="2" r="6.5" fill="#FFD3B6" stroke="#172B50" stroke-width="2.8"/>
+    <circle cx="23" cy="2" r="6.5" fill="#FFD3B6" stroke="#172B50" stroke-width="2.8"/>
+
+    <!-- Infant Head -->
+    <circle cx="0" cy="-24" r="24" fill="#FFD3B6" stroke="#172B50" stroke-width="3.2"/>
+    <circle cx="-24" cy="-24" r="5" fill="#FFC19E" stroke="#172B50" stroke-width="2.6"/>
+    <circle cx="24" cy="-24" r="5" fill="#FFC19E" stroke="#172B50" stroke-width="2.6"/>
+    <!-- Sweet baby tuft -->
+    <path d="M-4 -47 C-6 -54, 4 -57, 7 -49 C9 -44, 2 -43, 0 -46" stroke="#4A2E1B" stroke-width="3.2" stroke-linecap="round"/>
+    <!-- Bright happy eyes -->
+    <circle cx="-9" cy="-26" r="2.8" fill="#172B50"/>
+    <circle cx="9" cy="-26" r="2.8" fill="#172B50"/>
+    <circle cx="-8" cy="-27" r="1" fill="#FFFFFF"/>
+    <circle cx="10" cy="-27" r="1" fill="#FFFFFF"/>
+    <!-- Rosy cheeks -->
+    <circle cx="-14" cy="-19" r="4" fill="#FF9AA2" opacity="0.65"/>
+    <circle cx="14" cy="-19" r="4" fill="#FF9AA2" opacity="0.65"/>
+    <!-- Happy open smile -->
+    <path d="M-6 -15 C-3 -10, 3 -10, 6 -15 Z" fill="#E05A6D" stroke="#172B50" stroke-width="2.2" stroke-linejoin="round"/>
+  </g>
+</svg>

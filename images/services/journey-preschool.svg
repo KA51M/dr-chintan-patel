@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <circle cx="80" cy="80" r="68" fill="#E3F7EF"/>
+  <circle cx="80" cy="80" r="60" fill="#D4F4E7" opacity="0.65"/>
+  <circle cx="126" cy="44" r="3" fill="#0AA779" opacity="0.35"/>
+  <circle cx="32" cy="112" r="3" fill="#1749C9" opacity="0.3"/>
+
+  <!-- Cute Preschool Girl with Pigtails -->
+  <g transform="translate(80, 90)">
+    <!-- Twin Pigtails -->
+    <circle cx="-27" cy="-42" r="10" fill="#4A2E1B" stroke="#172B50" stroke-width="3"/>
+    <circle cx="27" cy="-42" r="10" fill="#4A2E1B" stroke="#172B50" stroke-width="3"/>
+    <circle cx="-22" cy="-46" r="3.8" fill="#F43F5E" stroke="#172B50" stroke-width="2"/>
+    <circle cx="22" cy="-46" r="3.8" fill="#F43F5E" stroke="#172B50" stroke-width="2"/>
+
+    <!-- Waving Arm -->
+    <path d="M22 -8 C32 -12, 37 -20, 38 -28" stroke="#FFD3B6" stroke-width="10" stroke-linecap="round"/>
+    <path d="M22 -8 C32 -12, 37 -20, 38 -28" stroke="#172B50" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="38" cy="-30" r="5.5" fill="#FFD3B6" stroke="#172B50" stroke-width="2.6"/>
+
+    <!-- Left Arm -->
+    <path d="M-22 -8 C-28 4, -27 14, -24 20" stroke="#FFD3B6" stroke-width="10" stroke-linecap="round"/>
+    <path d="M-22 -8 C-28 4, -27 14, -24 20" stroke="#172B50" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Royal Blue Dress / Top -->
+    <path d="M-20 -14 L20 -14 L26 36 C12 40, -12 40, -26 36 Z" fill="#1749C9" stroke="#172B50" stroke-width="3.2" stroke-linejoin="round"/>
+    <!-- Cute White Collar -->
+    <path d="M-11 -14 L0 -5 L11 -14 Z" fill="#FFFFFF" stroke="#172B50" stroke-width="2.4" stroke-linejoin="round"/>
+
+    <!-- Head -->
+    <circle cx="0" cy="-34" r="21" fill="#FFD3B6" stroke="#172B50" stroke-width="3.2"/>
+    <!-- Bangs & Hair -->
+    <path d="M-21 -38 C-20 -55, -6 -59, 0 -57 C8 -59, 21 -54, 21 -38 C14 -45, 5 -43, 0 -46 C-5 -43, -14 -45, -21 -38 Z" fill="#4A2E1B" stroke="#172B50" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Eyes & Warm Smile -->
+    <circle cx="-7.5" cy="-34" r="2.6" fill="#172B50"/>
+    <circle cx="7.5" cy="-34" r="2.6" fill="#172B50"/>
+    <circle cx="-12.5" cy="-27" r="3.5" fill="#FF9AA2" opacity="0.65"/>
+    <circle cx="12.5" cy="-27" r="3.5" fill="#FF9AA2" opacity="0.65"/>
+    <path d="M-5.5 -24 C-2.5 -20, 2.5 -20, 5.5 -24" stroke="#172B50" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>

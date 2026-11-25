@@ -30,7 +30,90 @@
         <ul class="nav-links">
           <li><a href="index.html" class="nav-link">Home</a></li>
           <li><a href="about.html" class="nav-link active">About</a></li>
-          <li><a href="index.html#services" class="nav-link">Services</a></li>
+          <li class="nav-item-dropdown">
+            <a href="services.html" class="nav-link nav-link-dropdown" aria-haspopup="true" aria-expanded="false">
+              <span>Services</span>
+              <svg class="nav-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <div class="nav-services-dropdown" role="region" aria-label="Pediatric Services Menu">
+              <div class="nav-services-dropdown-inner">
+                <div class="nav-services-dropdown-header">
+                  <div class="nav-services-dropdown-title-wrap">
+                    <span class="nav-services-eyebrow">Our Pediatric Services</span>
+                    <span class="nav-services-sub">Choose a specialty to view or book care</span>
+                  </div>
+                  <a href="services.html" class="nav-services-all-link">
+                    <span>All Services</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+                <div class="nav-services-body">
+                  <div class="nav-services-filters" role="group" aria-label="Service Categories">
+                    <span class="nav-filter-label">Categories</span>
+                    <button type="button" class="nav-filter-btn is-active">
+                      <span>Category 1</span>
+                      <span class="nav-filter-dot" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="nav-filter-btn">
+                      <span>Category 2</span>
+                      <span class="nav-filter-dot" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="nav-filter-btn">
+                      <span>Category 3</span>
+                      <span class="nav-filter-dot" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="nav-filter-btn">
+                      <span>Category 4</span>
+                      <span class="nav-filter-dot" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <div class="nav-services-grid">
+                    <a href="services.html#newborn-care" class="nav-service-card" data-tone="amber">
+                      <span class="nav-service-icon-box">
+                        <img src="images/homepage/newborn care.png" alt="" class="nav-service-icon">
+                      </span>
+                      <span class="nav-service-name">Newborn Care</span>
+                    </a>
+                    <a href="services.html#growth-development" class="nav-service-card" data-tone="violet">
+                      <span class="nav-service-icon-box">
+                        <img src="images/homepage/developmental milestones.png" alt="" class="nav-service-icon">
+                      </span>
+                      <span class="nav-service-name">Growth &amp; Development</span>
+                    </a>
+                    <a href="services.html#vaccination" class="nav-service-card" data-tone="mint">
+                      <span class="nav-service-icon-box">
+                        <img src="images/homepage/immunuzation.png" alt="" class="nav-service-icon">
+                      </span>
+                      <span class="nav-service-name">Vaccination &amp; Immunization</span>
+                    </a>
+                    <a href="services.html#childhood-illnesses" class="nav-service-card" data-tone="cyan">
+                      <span class="nav-service-icon-box">
+                        <img src="images/homepage/pediatric urgent care.png" alt="" class="nav-service-icon">
+                      </span>
+                      <span class="nav-service-name">Childhood Illnesses</span>
+                    </a>
+                    <a href="services.html#nutrition-guidance" class="nav-service-card" data-tone="lime">
+                      <span class="nav-service-icon-box">
+                        <img src="images/homepage/childhood nutrition.png" alt="" class="nav-service-icon">
+                      </span>
+                      <span class="nav-service-name">Nutrition &amp; Diet</span>
+                    </a>
+                    <a href="services.html#asthma-respiratory" class="nav-service-card" data-tone="rose">
+                      <span class="nav-service-icon-box">
+                        <img src="images/homepage/allergy & asthma.png" alt="" class="nav-service-icon">
+                      </span>
+                      <span class="nav-service-name">Asthma &amp; Respiratory</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
       </nav>
@@ -68,7 +151,42 @@
       <ul class="mobile-nav-links">
         <li><a href="index.html" class="mobile-nav-link">Home</a></li>
         <li><a href="about.html" class="mobile-nav-link active">About</a></li>
-        <li><a href="index.html#services" class="mobile-nav-link">Services</a></li>
+        <li class="mobile-services-group">
+          <div class="mobile-nav-dropdown-row">
+            <a href="services.html" class="mobile-nav-link">Services</a>
+            <button type="button" class="mobile-services-toggle" aria-expanded="false" aria-label="Toggle pediatric services list">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div class="mobile-services-subgrid">
+            <a href="services.html#newborn-care" class="mobile-service-chip">
+              <img src="images/homepage/newborn care.png" alt="">
+              <span>Newborn Care</span>
+            </a>
+            <a href="services.html#growth-development" class="mobile-service-chip">
+              <img src="images/homepage/developmental milestones.png" alt="">
+              <span>Growth &amp; Dev</span>
+            </a>
+            <a href="services.html#vaccination" class="mobile-service-chip">
+              <img src="images/homepage/immunuzation.png" alt="">
+              <span>Vaccination</span>
+            </a>
+            <a href="services.html#childhood-illnesses" class="mobile-service-chip">
+              <img src="images/homepage/pediatric urgent care.png" alt="">
+              <span>Illnesses</span>
+            </a>
+            <a href="services.html#nutrition-guidance" class="mobile-service-chip">
+              <img src="images/homepage/childhood nutrition.png" alt="">
+              <span>Nutrition</span>
+            </a>
+            <a href="services.html#asthma-respiratory" class="mobile-service-chip">
+              <img src="images/homepage/allergy & asthma.png" alt="">
+              <span>Respiratory</span>
+            </a>
+          </div>
+        </li>
         <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
       </ul>
       <div class="mobile-menu-action">
@@ -827,7 +945,7 @@
           <ul class="footer-links">
             <li><a href="index.html" class="footer-link">Home</a></li>
             <li><a href="about.html" class="footer-link">About</a></li>
-            <li><a href="index.html#services" class="footer-link">Services</a></li>
+            <li><a href="services.html" class="footer-link">Services</a></li>
             <li><a href="index.html#why-choose" class="footer-link">Why Choose Us</a></li>
             <li><a href="contact.html" class="footer-link">Contact</a></li>
           </ul>
