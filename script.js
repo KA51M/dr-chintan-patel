@@ -577,18 +577,38 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // 16. Navbar Services Dropdown Accessibility, Category Filter Visuals, Mobile Toggle & Card Highlight
+  // 16. Navbar Services Dropdown Hover Grace Timer, Filter Pills, Mobile Accordion & Card Highlight
   const navDropdownItem = document.querySelector('.nav-item-dropdown');
   if (navDropdownItem) {
     const dropdownTrigger = navDropdownItem.querySelector('.nav-link-dropdown');
-    navDropdownItem.addEventListener('mouseenter', () => {
+    const dropdownPanel = navDropdownItem.querySelector('.nav-services-dropdown');
+    let hoverCloseTimer = null;
+
+    const openDropdown = () => {
+      clearTimeout(hoverCloseTimer);
+      navDropdownItem.classList.add('is-open');
       if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'true');
-    });
-    navDropdownItem.addEventListener('mouseleave', () => {
-      if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
-    });
+    };
+
+    const scheduleCloseDropdown = () => {
+      clearTimeout(hoverCloseTimer);
+      hoverCloseTimer = setTimeout(() => {
+        navDropdownItem.classList.remove('is-open');
+        if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
+      }, 140);
+    };
+
+    navDropdownItem.addEventListener('mouseenter', openDropdown);
+    navDropdownItem.addEventListener('mouseleave', scheduleCloseDropdown);
+
+    if (dropdownPanel) {
+      dropdownPanel.addEventListener('mouseenter', openDropdown);
+      dropdownPanel.addEventListener('mouseleave', scheduleCloseDropdown);
+    }
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        clearTimeout(hoverCloseTimer);
         navDropdownItem.classList.remove('is-open');
         if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
         if (document.activeElement && navDropdownItem.contains(document.activeElement)) {
@@ -633,4 +653,312 @@ document.addEventListener('DOMContentLoaded', () => {
 
   highlightTargetServiceCard();
   window.addEventListener('hashchange', highlightTargetServiceCard);
+
+  // 17. Services Page Detail Modal ("Learn More" -> Split Modal with Symptoms / Care / Cause)
+  const serviceDetailModal = document.getElementById('serviceDetailModal');
+  if (serviceDetailModal) {
+    const SERVICE_DETAILS = {
+      'newborn-care': {
+        title: 'Newborn Care',
+        badge: '0 – 1 Month • Neonatal Care',
+        image: 'images/services/newborn-care.png',
+        alt: 'Peaceful sleeping newborn baby with soft knit hat',
+        desc: 'Warm, attentive postnatal checkups supporting your baby’s earliest days, feeding rhythm, and healthy weight gain.',
+        tabs: {
+          symptoms: [
+            'Feeding difficulty or poor latching',
+            'Mild jaundice or skin yellowing',
+            'Irregular sleep or colic fussiness',
+            'Slow early weight gain'
+          ],
+          care: [
+            'Full newborn head-to-toe exam',
+            'Lactation & feeding schedule guidance',
+            'Umbilical cord & safe sleep advice',
+            'Jaundice & early reflex screening'
+          ],
+          cause: [
+            'Post-birth adjustment & hydration shifts',
+            'Immature liver enzyme clearance',
+            'Early feeding & latch transitions',
+            'Developing newborn digestive tract'
+          ]
+        }
+      },
+      'growth-development': {
+        title: 'Growth & Development Monitoring',
+        badge: 'All Ages • Milestone Tracking',
+        image: 'images/services/growth-development.png',
+        alt: 'Happy smiling toddler sitting up cheerfully',
+        desc: 'Proactive tracking of physical growth, motor skills, speech, and social milestones at every age.',
+        tabs: {
+          symptoms: [
+            'Delayed sitting, crawling, or walking',
+            'Fewer words or delayed speech clarity',
+            'Sudden height or weight percentile dip',
+            'Attention or social play concerns'
+          ],
+          care: [
+            'WHO growth chart plotting every visit',
+            'Age-specific motor & speech screening',
+            'Playful cognitive milestone activities',
+            'Early intervention guidance if needed'
+          ],
+          cause: [
+            'Normal individual growth variations',
+            'Nutritional gaps during growth spurts',
+            'Ear fluid affecting early speech clarity',
+            'Genetic height & build patterns'
+          ]
+        }
+      },
+      'vaccination': {
+        title: 'Vaccination & Immunization',
+        badge: 'Preventive Care • IAP / CDC',
+        image: 'images/services/vaccination-immunization.png',
+        alt: 'Smiling young girl receiving a gentle pediatric vaccination',
+        desc: 'Timely, gentle immunizations following trusted pediatric guidelines to build lifelong protection safely.',
+        tabs: {
+          symptoms: [
+            'Due or missed routine booster doses',
+            'Mild warmth or soreness post-shot',
+            'Upcoming school or travel immunizations',
+            'Seasonal flu protection needs'
+          ],
+          care: [
+            'Painless-focus gentle injection technique',
+            'Personalized digital vaccine schedule',
+            'Post-vaccine comfort & fever guidance',
+            'Cold-chain certified vaccine storage'
+          ],
+          cause: [
+            'Age-scheduled immunity milestones',
+            'Waning protection needing boosters',
+            'Seasonal viral & bacterial exposure',
+            'School & daycare group exposure'
+          ]
+        }
+      },
+      'childhood-illnesses': {
+        title: 'Treatment of Common Childhood Illnesses',
+        badge: 'Same-Day Pediatric Care',
+        image: 'images/services/childhood-illnesses.png',
+        alt: 'Dr. Chintan Patel consulting warmly with mother and child',
+        desc: 'Prompt, accurate diagnosis and gentle relief for fevers, colds, earaches, stomach bugs, and rashes.',
+        tabs: {
+          symptoms: [
+            'Persistent fever or chills',
+            'Runny nose, sore throat, or cough',
+            'Ear tugging, tummy ache, or vomiting',
+            'Sudden skin rashes or low energy'
+          ],
+          care: [
+            'Same-day gentle pediatric examination',
+            'Child-safe weight-based dosing plans',
+            'Hydration & home comfort instructions',
+            'Quick follow-up check if symptoms linger'
+          ],
+          cause: [
+            'Common seasonal viral infections',
+            'School or playground germ spread',
+            'Mild ear or throat bacterial bugs',
+            'Food sensitivity or stomach viruses'
+          ]
+        }
+      },
+      'nutrition-guidance': {
+        title: 'Nutrition & Dietary Guidance',
+        badge: 'Balanced Growth • Diet Plans',
+        image: 'images/services/nutrition-guidance.png',
+        alt: 'Happy child enjoying fresh colorful healthy fruits',
+        desc: 'Practical, family-friendly nutrition counseling from first solids to balanced meals for thriving energy.',
+        tabs: {
+          symptoms: [
+            'Picky eating or mealtime refusal',
+            'Low appetite, fatigue, or pale look',
+            'Constipation or tummy bloating',
+            'Underweight or rapid weight shifts'
+          ],
+          care: [
+            'Age-tailored daily meal & snack plans',
+            'Gentle weaning & solids transition chart',
+            'Iron, calcium & vitamin-rich food ideas',
+            'Healthy habit tips without meal stress'
+          ],
+          cause: [
+            'Texture sensitivity during weaning',
+            'Excess milk or sugary snacking',
+            'Low dietary fiber or hydration',
+            'Changing appetite in toddler years'
+          ]
+        }
+      },
+      'asthma-respiratory': {
+        title: 'Childhood Asthma & Respiratory Care',
+        badge: 'Gentle Breathing & Allergy Relief',
+        image: 'images/services/asthma-respiratory.png',
+        alt: 'Dr. Chintan Patel checking a child’s chest with a stethoscope',
+        desc: 'Specialized airway evaluation, inhaler/nebulizer guidance, and preventive care so children breathe easy.',
+        tabs: {
+          symptoms: [
+            'Nighttime or play-triggered dry cough',
+            'Wheezing or whistling chest sounds',
+            'Shortness of breath during active play',
+            'Frequent seasonal sneezing & congestion'
+          ],
+          care: [
+            'Detailed lung & airway assessment',
+            'Kid-friendly spacer & nebulizer training',
+            'Written home asthma action plan',
+            'Allergy trigger identification & control'
+          ],
+          cause: [
+            'Dust mites, pollen, or weather shifts',
+            'Viral colds triggering sensitive airways',
+            'Family tendency toward asthma or allergies',
+            'Indoor smoke or strong fragrances'
+          ]
+        }
+      }
+    };
+
+    const detailImg = document.getElementById('serviceDetailImg');
+    const detailBadge = document.getElementById('serviceDetailBadge');
+    const detailTitle = document.getElementById('serviceDetailTitle');
+    const detailDesc = document.getElementById('serviceDetailDesc');
+    const detailPoints = document.getElementById('serviceDetailPoints');
+    const detailTabs = serviceDetailModal.querySelectorAll('.service-detail-tab');
+    const detailBookBtn = document.getElementById('serviceDetailBookBtn');
+    const detailCloseBtn = serviceDetailModal.querySelector('.service-detail-close');
+
+    let activeServiceId = 'newborn-care';
+    let activeTabKey = 'symptoms';
+
+    function renderDetailPoints() {
+      const svc = SERVICE_DETAILS[activeServiceId];
+      if (!svc || !detailPoints) return;
+      const items = svc.tabs[activeTabKey] || [];
+      detailPoints.innerHTML = items.map(text => `
+        <li class="service-detail-point">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="9 12 11.5 14.5 16 9.5"></polyline>
+          </svg>
+          <span>${text}</span>
+        </li>
+      `).join('');
+    }
+
+    function openServiceDetail(serviceId) {
+      const svc = SERVICE_DETAILS[serviceId];
+      if (!svc) return;
+      activeServiceId = serviceId;
+      activeTabKey = 'symptoms';
+
+      if (detailImg) {
+        detailImg.src = svc.image;
+        detailImg.alt = svc.alt;
+      }
+      if (detailBadge) detailBadge.textContent = svc.badge;
+      if (detailTitle) detailTitle.textContent = svc.title;
+      if (detailDesc) detailDesc.textContent = svc.desc;
+
+      detailTabs.forEach(tab => {
+        const isDefault = tab.getAttribute('data-tab') === 'symptoms';
+        tab.classList.toggle('is-active', isDefault);
+        tab.setAttribute('aria-selected', isDefault ? 'true' : 'false');
+      });
+
+      renderDetailPoints();
+      serviceDetailModal.classList.add('is-open');
+      serviceDetailModal.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('modal-open');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeServiceDetail() {
+      serviceDetailModal.classList.remove('is-open');
+      serviceDetailModal.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('modal-open');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.querySelectorAll('.js-open-service-detail').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const sid = btn.getAttribute('data-service-id');
+        openServiceDetail(sid);
+      });
+    });
+
+    detailTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        activeTabKey = tab.getAttribute('data-tab') || 'symptoms';
+        detailTabs.forEach(t => {
+          const active = t === tab;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        renderDetailPoints();
+      });
+    });
+
+    if (detailBookBtn) {
+      detailBookBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const svc = SERVICE_DETAILS[activeServiceId];
+        closeServiceDetail();
+        const modalOverlay = document.getElementById('bookingModal');
+        const modalMsg = document.getElementById('modalMessage');
+        const modalFirst = document.getElementById('modalFirstName');
+        if (modalOverlay) {
+          if (modalMsg && svc) {
+            modalMsg.value = `Service requested: ${svc.title}\n`;
+          }
+          modalOverlay.classList.add('is-open');
+          modalOverlay.setAttribute('aria-hidden', 'false');
+          document.documentElement.classList.add('modal-open');
+          document.body.classList.add('modal-open');
+          if (modalFirst) setTimeout(() => modalFirst.focus(), 120);
+        }
+      });
+    }
+
+    if (detailCloseBtn) {
+      detailCloseBtn.addEventListener('click', closeServiceDetail);
+    }
+
+    serviceDetailModal.addEventListener('click', (e) => {
+      if (e.target === serviceDetailModal) closeServiceDetail();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && serviceDetailModal.classList.contains('is-open')) {
+        closeServiceDetail();
+      }
+    });
+  }
+
+  // 18. Childhood Health Journey Scroll Pop-Up Animation (Each Stage Pops In Along Track)
+  const journeyStages = document.querySelectorAll('#journeyTrack .journey-stage');
+  if (journeyStages.length > 0) {
+    if ('IntersectionObserver' in window) {
+      const stageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const idx = Array.from(journeyStages).indexOf(entry.target);
+            const delay = window.innerWidth > 868 ? idx * 90 : 40;
+            setTimeout(() => {
+              entry.target.classList.add('is-popped');
+            }, delay);
+            stageObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -35px 0px', threshold: 0.22 });
+
+      journeyStages.forEach(stage => stageObserver.observe(stage));
+    } else {
+      journeyStages.forEach(stage => stage.classList.add('is-popped'));
+    }
+  }
 });
