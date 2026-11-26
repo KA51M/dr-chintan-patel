@@ -334,15 +334,59 @@
           </div>
 
           <div class="services-filter-pills" role="group" aria-label="Service category filters">
-            <button type="button" class="services-filter-btn services-list-all-btn is-active" data-filter="all" aria-label="List all services">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
-                <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
-                <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
-                <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
-              </svg>
-              <span class="list-all-text">List All</span>
-            </button>
+            <div class="services-list-dropdown" id="servicesListDropdown">
+              <button type="button" class="services-list-all-btn" id="servicesListDropdownBtn" aria-haspopup="true" aria-expanded="false" aria-controls="servicesListMenu">
+                <svg class="list-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <circle cx="4" cy="6" r="1"></circle>
+                  <circle cx="4" cy="12" r="1"></circle>
+                  <circle cx="4" cy="18" r="1"></circle>
+                </svg>
+                <span class="list-all-text-desktop">List All</span>
+                <span class="list-all-text-mobile">List</span>
+                <svg class="list-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              <div class="services-list-menu" id="servicesListMenu" role="menu" aria-label="Select a pediatric service">
+                <div class="services-list-menu-header">Select a Service</div>
+                <button type="button" class="services-list-item" data-target="newborn-care" role="menuitem">
+                  <span class="services-list-item-icon" data-tone="amber"><img src="images/homepage/newborn care.png" alt=""></span>
+                  <span class="services-list-item-name">Newborn Care</span>
+                  <svg class="services-list-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <button type="button" class="services-list-item" data-target="growth-development" role="menuitem">
+                  <span class="services-list-item-icon" data-tone="violet"><img src="images/homepage/developmental milestones.png" alt=""></span>
+                  <span class="services-list-item-name">Growth &amp; Development Monitoring</span>
+                  <svg class="services-list-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <button type="button" class="services-list-item" data-target="vaccination" role="menuitem">
+                  <span class="services-list-item-icon" data-tone="mint"><img src="images/homepage/immunuzation.png" alt=""></span>
+                  <span class="services-list-item-name">Vaccination &amp; Immunization</span>
+                  <svg class="services-list-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <button type="button" class="services-list-item" data-target="childhood-illnesses" role="menuitem">
+                  <span class="services-list-item-icon" data-tone="cyan"><img src="images/homepage/pediatric urgent care.png" alt=""></span>
+                  <span class="services-list-item-name">Treatment of Common Childhood Illnesses</span>
+                  <svg class="services-list-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <button type="button" class="services-list-item" data-target="nutrition-guidance" role="menuitem">
+                  <span class="services-list-item-icon" data-tone="lime"><img src="images/homepage/childhood nutrition.png" alt=""></span>
+                  <span class="services-list-item-name">Nutrition &amp; Dietary Guidance</span>
+                  <svg class="services-list-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <button type="button" class="services-list-item" data-target="asthma-respiratory" role="menuitem">
+                  <span class="services-list-item-icon" data-tone="rose"><img src="images/homepage/allergy & asthma.png" alt=""></span>
+                  <span class="services-list-item-name">Childhood Asthma &amp; Respiratory Care</span>
+                  <svg class="services-list-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+            </div>
+
+            <button type="button" class="services-filter-btn services-cat-btn is-active" data-filter="all">All</button>
             <button type="button" class="services-filter-btn services-cat-btn" data-filter="category-1">Category 1</button>
             <button type="button" class="services-filter-btn services-cat-btn" data-filter="category-2">Category 2</button>
             <button type="button" class="services-filter-btn services-cat-btn" data-filter="category-3">Category 3</button>

@@ -1052,5 +1052,49 @@ document.addEventListener('DOMContentLoaded', () => {
         applyServiceFilters();
       });
     }
+
+    // List All Service Selector Dropdown
+    const listDropdown = document.getElementById('servicesListDropdown');
+    const listDropdownBtn = document.getElementById('servicesListDropdownBtn');
+    const listItems = document.querySelectorAll('#servicesListMenu .services-list-item');
+
+    if (listDropdown && listDropdownBtn) {
+      const closeListDropdown = () => {
+        listDropdown.classList.remove('is-open');
+        listDropdownBtn.setAttribute('aria-expanded', 'false');
+      };
+
+      listDropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = listDropdown.classList.toggle('is-open');
+        listDropdownBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (listDropdown.classList.contains('is-open') && !listDropdown.contains(e.target)) {
+          closeListDropdown();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && listDropdown.classList.contains('is-open')) {
+          closeListDropdown();
+        }
+      });
+
+      listItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const targetId = item.getAttribute('data-target');
+          closeListDropdown();
+
+          const detailTrigger = targetId
+            ? document.querySelector(`.js-open-service-detail[data-service-id="${targetId}"]`)
+            : null;
+          if (detailTrigger) {
+            detailTrigger.click();
+          }
+        });
+      });
+    }
   }
 });
