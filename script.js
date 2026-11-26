@@ -90,19 +90,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 3. Floating Capsule Navbar on Scroll
+  // 3. Floating Capsule Navbar on Scroll (RAF-throttled for 60/120fps scroll smoothness)
+  let scrollTicking = false;
+  let lastCapsuleState = null;
+
+  function updateScrollCapsule() {
+    scrollTicking = false;
+    const shouldBeCapsule = window.scrollY > 30;
+    if (shouldBeCapsule !== lastCapsuleState) {
+      lastCapsuleState = shouldBeCapsule;
+      header.classList.toggle('scrolled-capsule', shouldBeCapsule);
+    }
+  }
+
   function handleScrollCapsule() {
-    if (window.scrollY > 30) {
-      header.classList.add('scrolled-capsule');
-    } else {
-      header.classList.remove('scrolled-capsule');
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(updateScrollCapsule);
     }
   }
 
   window.addEventListener('scroll', handleScrollCapsule, { passive: true });
-  handleScrollCapsule(); // Initial check on page load
+  updateScrollCapsule(); // Initial check on page load
 
-  // 4. Scroll-Triggered Entrance Animation for About Section (Doctor Image + Gradient appear from below)
+  // 4. Scroll-Triggered Entrance Animation for About Section (Pre-reveals before entering viewport)
   const aboutVisual = document.querySelector('.about-visual-wrapper');
   const aboutSection = document.getElementById('about');
 
@@ -115,8 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }, {
-      rootMargin: '0px 0px -40px 0px',
-      threshold: 0.12
+      rootMargin: '80px 0px 80px 0px',
+      threshold: 0.01
     });
 
     aboutObserver.observe(aboutSection || aboutVisual);
@@ -185,16 +196,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Trigger slightly after card pop-in delay
-          setTimeout(runNumberCounters, 400);
+          setTimeout(runNumberCounters, 180);
           observer.disconnect();
         }
       });
-    }, { threshold: 0.15 });
+    }, { rootMargin: '60px 0px 60px 0px', threshold: 0.01 });
     
     observer.observe(statsSection);
   } else {
-    setTimeout(runNumberCounters, 450);
+    setTimeout(runNumberCounters, 200);
   }
 
   // 6. Specialties & Programs "Show More" Mobile Interaction
@@ -233,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
           specObserver.disconnect();
         }
       });
-    }, { threshold: 0.12 });
+    }, { rootMargin: '80px 0px 80px 0px', threshold: 0.01 });
     specObserver.observe(specialtiesSec);
   } else if (specialtiesSec) {
     specialtiesSec.classList.add('is-visible');
@@ -254,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             journeyObserver.disconnect();
           }
         });
-      }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+      }, { rootMargin: '80px 0px 80px 0px', threshold: 0.01 });
       journeyObserver.observe(journeySec);
     } else {
       revealJourney();
@@ -271,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
           philObserver.disconnect();
         }
       });
-    }, { threshold: 0.12 });
+    }, { rootMargin: '80px 0px 80px 0px', threshold: 0.01 });
     philObserver.observe(philosophySec);
   } else if (philosophySec) {
     philosophySec.classList.add('is-visible');
@@ -287,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
           commObserver.disconnect();
         }
       });
-    }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+    }, { rootMargin: '80px 0px 80px 0px', threshold: 0.01 });
     commObserver.observe(communitySec);
   } else if (communitySec) {
     communitySec.classList.add('is-visible');
@@ -303,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
           spaceObserver.disconnect();
         }
       });
-    }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+    }, { rootMargin: '80px 0px 80px 0px', threshold: 0.01 });
     spaceObserver.observe(spaceSec);
   } else if (spaceSec) {
     spaceSec.classList.add('is-visible');
@@ -319,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
           priorityObserver.disconnect();
         }
       });
-    }, { rootMargin: '0px 0px -30px 0px', threshold: 0.08 });
+    }, { rootMargin: '80px 0px 80px 0px', threshold: 0.01 });
     priorityObserver.observe(prioritySec);
   } else if (prioritySec) {
     prioritySec.classList.add('is-visible');
@@ -939,7 +949,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 18. Childhood Health Journey Scroll Pop-Up Animation (Each Stage Pops In Along Track)
+  // 18. Childhood Health Journey Scroll Pop-Up Animation (Each Stage Pops In Smoothly Before Viewport Entry)
   const journeyStages = document.querySelectorAll('#journeyTrack .journey-stage');
   if (journeyStages.length > 0) {
     if ('IntersectionObserver' in window) {
@@ -947,18 +957,100 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const idx = Array.from(journeyStages).indexOf(entry.target);
-            const delay = window.innerWidth > 868 ? idx * 90 : 40;
-            setTimeout(() => {
+            const delay = window.innerWidth > 868 ? idx * 70 : 0;
+            if (delay > 0) {
+              setTimeout(() => entry.target.classList.add('is-popped'), delay);
+            } else {
               entry.target.classList.add('is-popped');
-            }, delay);
+            }
             stageObserver.unobserve(entry.target);
           }
         });
-      }, { rootMargin: '0px 0px -35px 0px', threshold: 0.22 });
+      }, { rootMargin: '80px 0px 80px 0px', threshold: 0.01 });
 
       journeyStages.forEach(stage => stageObserver.observe(stage));
     } else {
       journeyStages.forEach(stage => stage.classList.add('is-popped'));
+    }
+  }
+
+  // 19. Services Page Search Bar + Category Filters + List All Reset
+  const servicesSearchInput = document.getElementById('servicesSearchInput');
+  const servicesSearchClear = document.getElementById('servicesSearchClear');
+  const servicesFilterBtns = document.querySelectorAll('.services-filter-btn');
+  const servicesCards = document.querySelectorAll('#servicesPageGrid .service-page-card');
+  const servicesEmptyState = document.getElementById('servicesEmptyState');
+  const servicesEmptyResetBtn = document.getElementById('servicesEmptyResetBtn');
+
+  if (servicesCards.length > 0 && (servicesSearchInput || servicesFilterBtns.length > 0)) {
+    let activeCategory = 'all';
+    let searchTerm = '';
+
+    function applyServiceFilters() {
+      const q = searchTerm.trim().toLowerCase();
+      let visibleCount = 0;
+
+      servicesCards.forEach(card => {
+        const cardCat = card.getAttribute('data-category') || '';
+        const matchesCategory = activeCategory === 'all' || cardCat === activeCategory;
+        const text = card.textContent.toLowerCase();
+        const matchesSearch = !q || text.includes(q);
+        const shouldShow = matchesCategory && matchesSearch;
+
+        card.classList.toggle('is-hidden', !shouldShow);
+        if (shouldShow) visibleCount++;
+      });
+
+      if (servicesEmptyState) {
+        servicesEmptyState.hidden = visibleCount > 0;
+      }
+
+      if (servicesSearchClear) {
+        servicesSearchClear.hidden = q.length === 0;
+      }
+    }
+
+    if (servicesSearchInput) {
+      servicesSearchInput.addEventListener('input', () => {
+        searchTerm = servicesSearchInput.value;
+        applyServiceFilters();
+      });
+    }
+
+    if (servicesSearchClear && servicesSearchInput) {
+      servicesSearchClear.addEventListener('click', () => {
+        servicesSearchInput.value = '';
+        searchTerm = '';
+        applyServiceFilters();
+        servicesSearchInput.focus();
+      });
+    }
+
+    servicesFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filterVal = btn.getAttribute('data-filter') || 'all';
+        activeCategory = filterVal;
+
+        if (filterVal === 'all' && servicesSearchInput) {
+          servicesSearchInput.value = '';
+          searchTerm = '';
+        }
+
+        servicesFilterBtns.forEach(b => b.classList.toggle('is-active', b === btn));
+        applyServiceFilters();
+      });
+    });
+
+    if (servicesEmptyResetBtn) {
+      servicesEmptyResetBtn.addEventListener('click', () => {
+        activeCategory = 'all';
+        searchTerm = '';
+        if (servicesSearchInput) servicesSearchInput.value = '';
+        servicesFilterBtns.forEach(b => {
+          b.classList.toggle('is-active', b.getAttribute('data-filter') === 'all');
+        });
+        applyServiceFilters();
+      });
     }
   }
 });
